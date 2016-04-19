@@ -62,7 +62,7 @@ This class contains the main entry point into the webservice application. It is 
 This interface defines the endpoints that can be called with HTTP requests to the webservice. For each endpoint it defines the method within the controller class that will be used to process the request to the HTTP endpoint. 
 
 **ESDWebServiceController.cs**
-This class is called whenever a HTTP request comes into the webservice that a matching endpoint needs to be processed. For each request the webservice creates an instance of the class to handle the request. The webservice creates these instances using multi-threading, this means that simultaneous requests can be processed at the same time for an endpoint.
+This class is called whenever a HTTP request comes into the webservice that a matching endpoint needs to be processed. For each request the webservice creates an instance of the class to handle the request. The webservice creates these instances using multi-threading, this means that simultaneous requests can be processed at the same time for a number of endpoints.
 
 **ESDWebServiceSettings.cs**
 This class contains a number of properties that define how the webservice is run. In a production environment these settings would be typically set in a separate file, or database, where they can could easily be changed by a system administrator person.
