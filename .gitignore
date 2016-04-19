@@ -1,0 +1,6 @@
+Source/packages/
+Source/obj/
+*.suo
+bin/
+obj/
+debug/
