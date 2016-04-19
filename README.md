@@ -58,6 +58,9 @@ The webservice has been broken down into the following classes
 **ESDWebServiceRunner.cs**
 This class contains the main entry point into the webservice application. It is in charge of configuring, starting and running the ESD webservice.
 
+**IESDWebServiceEndPoints.cs**
+This interface defines the endpoints that can be called with HTTP requests to the webservice. For each endpoint it defines the method within the controller class that will be used to process the request to the HTTP endpoint. 
+
 **ESDWebServiceController.cs**
 This class is called whenever a HTTP request comes into the webservice that a matching endpoint needs to be processed. For each request the webservice creates an instance of the class to handle the request. The webservice creates these instances using multi-threading, this means that simultaneous requests can be processed at the same time for an endpoint.
 
@@ -71,3 +74,4 @@ This class contains a number of constant properties that are used throughout the
 The GZipMessageEncoderFactory, ESDWebserviceTemplate, GZipMessageEncodingBindingElementImporter classes are used to allow all HTTP responses from the webservice to be compressed using the GZIP compression algorithm. These classes are only required in the earlier versions of the DotNet platform (versions 4.0 and lower) where the platform provided no inbuilt mechanism of compression. It is important that the data returned from the webservice is compressed since this reduces download times for the receiver to obtain data. For certain endpoints 100s of megabytes of data may be returned which most definitely requires compression.
 
 ## Notes For Implementation Of the Webservice In A Production Environment
+
