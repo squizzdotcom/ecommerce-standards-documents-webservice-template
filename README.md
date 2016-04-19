@@ -47,7 +47,7 @@ After the webservice console application has started, you can open a web browser
 * http://localhost:8081/esd/data/price_customer_account_price?keyCustomerAccountID=ACC-123&keyProductID=PROD-123&quantity=10
 
 ## Posting Data
-The following URLs can be called using a HTTP POST request with the body of the request being given and Ecommerce Standards Document based on the given type
+The following URLs can be called using a HTTP POST request with the body of the request being given an Ecommerce Standards Document in the JSON data form based on the supported document type. Read the ESD library's [documentation](https://www.squizz.com/esd/index.html) to determine this.
 * http://localhost:8081/esd/data/sales_orders
 * http://localhost:8081/esd/data/purchase_orders
 * http://localhost:8081/esd/data/customer_accounts
