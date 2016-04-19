@@ -55,7 +55,16 @@ http://localhost:8081/esd/data/customer_account_payments
 ## ESD Webservice Template Class Structure
 The webservice has been broken down into the following classes
 ### ESDWebServiceRunner.cs
+This class contains the main entry point into the webservice application. It is in charge of configuring, starting and running the ESD webservice.
+
+
 ### ESDWebServiceController.cs
+This class is called whenever a HTTP request comes into the webservice that a matching endpoint needs to process. For each request the webservice creates an instance of the class to handle the request.
+
+
+
 ### ESDWebServiceSettings.cs
+### ESDWebServiceContants.cs
+### GZIP Classes
 
 ## Notes For Implementation Of the Webservice In A Production Environment
