@@ -15,10 +15,6 @@ After the webservice console application has started, you can open a web browser
 * http://localhost:8081/esd/data/customer_accounts
 * http://localhost:8081/esd/data/customer_account_addresses
 * http://localhost:8081/esd/data/customer_account_contracts
-* http://localhost:8081/esd/data/customer_account_enquiry_record?keyCustomerAccountID=1&recordType=INVOICE&keyRecordID=34652
-* http://localhost:8081/esd/data/customer_account_enquiry_records?keyCustomerAccountID=1&recordType=INVOICE&beginDate=0&endDate=0&pageNumber=0&numberOfRecords=0&orderByField=&orderByDirection=&outstandingRecords=false&searchString=&keyRecordIDs=&searchType=
-* http://localhost:8081/esd/data/customer_account_enquiry_line_report?keyCustomerAccountID=1&recordType=INVOICE&reportID=invoice_lines&orderByField=&orderByDirection=&pageNumber=0&numberOfRecords=0
-* http://localhost:8081/esd/data/customer_account_status?keyCustomerAccountID=1&checkOnHold=Y&checkBalance=Y&checkTerms=Y
 * http://localhost:8081/esd/data/downloads
 * http://localhost:8081/esd/data/flags
 * http://localhost:8081/esd/data/images
@@ -31,7 +27,6 @@ After the webservice console application has started, you can open a web browser
 * http://localhost:8081/esd/data/price_level_pricing
 * http://localhost:8081/esd/data/price_level_quantity_pricing
 * http://localhost:8081/esd/data/price_customer_account_pricing
-* http://localhost:8081/esd/data/price_customer_account_price?keyCustomerAccountID=ACC-123&keyProductID=ROD-123&quantity=10
 * http://localhost:8081/esd/data/products
 * http://localhost:8081/esd/data/price_levels
 * http://localhost:8081/esd/data/product_combinations
@@ -45,6 +40,11 @@ After the webservice console application has started, you can open a web browser
 * http://localhost:8081/esd/data/surcharges
 * http://localhost:8081/esd/data/taxcodes
 * http://localhost:8081/esd/data/webservice_status
+* * http://localhost:8081/esd/data/customer_account_enquiry_record?keyCustomerAccountID=1&recordType=INVOICE&keyRecordID=34652
+* http://localhost:8081/esd/data/customer_account_enquiry_records?keyCustomerAccountID=1&recordType=INVOICE&beginDate=0&endDate=0&pageNumber=0&numberOfRecords=0&orderByField=&orderByDirection=&outstandingRecords=false&searchString=&keyRecordIDs=&searchType=
+* http://localhost:8081/esd/data/customer_account_enquiry_line_report?keyCustomerAccountID=1&recordType=INVOICE&reportID=invoice_lines&orderByField=&orderByDirection=&pageNumber=0&numberOfRecords=0
+* http://localhost:8081/esd/data/customer_account_status?keyCustomerAccountID=1&checkOnHold=Y&checkBalance=Y&checkTerms=Y
+* http://localhost:8081/esd/data/price_customer_account_price?keyCustomerAccountID=ACC-123&keyProductID=ROD-123&quantity=10
 
 ## Posting Data
 The following URLs can be called using a HTTP POST request with the body of the request being given and Ecommerce Standards Document based on the given type
