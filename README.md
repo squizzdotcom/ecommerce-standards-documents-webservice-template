@@ -4,7 +4,7 @@ This template webservice provides an example on how to integrate an ESD webservi
 The webservice is build using the Windows Communication Foundation (WCF) libraries that natively exist within the DotNet platform. This means less work is required to create the webservice since the DotNet platform takes care of the low level programming required.
 
 ## Installation
-After deploying the webservice template repository to your local machine using GIT, you should be able to run the webservice by simply opening up on visual studio solution file within Visual Studio, then pressing the Start button. This will cause the webservice to run as a console application. At the time of writing the webservice templtae successfully could be started from within Visual Studio 2015 running with DotNet 4.6.1.
+After deploying the webservice template repository to your local machine using GIT, you should be able to run the webservice by simply opening up on visual studio solution file within Visual Studio, then pressing the Start button. This will cause the webservice to run as a console application. At the time of writing the webservice template successfully could be started from within Visual Studio 2015 running with DotNet 4.6.1. For some versions of Windows, Visual Studio may need to be run as an administrator to allow the webservice to listen on a given port.
 
 ## Retrieving Data
 After the webservice console application has started, you can open a web browser and call any of the following URLs to obtain example data that has been set within the webservice template.
