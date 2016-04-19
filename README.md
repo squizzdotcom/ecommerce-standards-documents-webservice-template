@@ -54,17 +54,20 @@ http://localhost:8081/esd/data/customer_account_payments
 
 ## ESD Webservice Template Class Structure
 The webservice has been broken down into the following classes
-### ESDWebServiceRunner.cs
+
+**ESDWebServiceRunner.cs**
 This class contains the main entry point into the webservice application. It is in charge of configuring, starting and running the ESD webservice.
 
+**ESDWebServiceController.cs**
+This class is called whenever a HTTP request comes into the webservice that a matching endpoint needs to be processed. For each request the webservice creates an instance of the class to handle the request. The webservice creates these instances using multi-threading, this means that simultaneous requests can be processed at the same time for an endpoint.
 
-### ESDWebServiceController.cs
-This class is called whenever a HTTP request comes into the webservice that a matching endpoint needs to process. For each request the webservice creates an instance of the class to handle the request.
+**ESDWebServiceSettings.cs**
+This class contains a number of properties that define how the webservice is run. In a production environment these settings would be typically set in a separate file, or database, where they can could easily be changed by a system administrator person.
 
+**ESDWebServiceContants.cs**
+This class contains a number of constant properties that are used throughout the webservice and controlling classes. In a production environment some of the language specific properties would be handled in separate files.
 
-
-### ESDWebServiceSettings.cs
-### ESDWebServiceContants.cs
-### GZIP Classes
+**GZIP Classes**
+The GZipMessageEncoderFactory, ESDWebserviceTemplate, GZipMessageEncodingBindingElementImporter classes are used to allow all HTTP responses from the webservice to be compressed using the GZIP compression algorithm. These classes are only required in the earlier versions of the DotNet platform (versions 4.0 and lower) where the platform provided no inbuilt mechanism of compression. It is important that the data returned from the webservice is compressed since this reduces download times for the receiver to obtain data. For certain endpoints 100s of megabytes of data may be returned which most definitely requires compression.
 
 ## Notes For Implementation Of the Webservice In A Production Environment
