@@ -40,7 +40,7 @@ After the webservice console application has started, you can open a web browser
 * http://localhost:8081/esd/data/surcharges
 * http://localhost:8081/esd/data/taxcodes
 * http://localhost:8081/esd/data/webservice_status
-* * http://localhost:8081/esd/data/customer_account_enquiry_record?keyCustomerAccountID=1&recordType=INVOICE&keyRecordID=34652
+* http://localhost:8081/esd/data/customer_account_enquiry_record?keyCustomerAccountID=1&recordType=INVOICE&keyRecordID=34652
 * http://localhost:8081/esd/data/customer_account_enquiry_records?keyCustomerAccountID=1&recordType=INVOICE&beginDate=0&endDate=0&pageNumber=0&numberOfRecords=0&orderByField=&orderByDirection=&outstandingRecords=false&searchString=&keyRecordIDs=&searchType=
 * http://localhost:8081/esd/data/customer_account_enquiry_line_report?keyCustomerAccountID=1&recordType=INVOICE&reportID=invoice_lines&orderByField=&orderByDirection=&pageNumber=0&numberOfRecords=0
 * http://localhost:8081/esd/data/customer_account_status?keyCustomerAccountID=1&checkOnHold=Y&checkBalance=Y&checkTerms=Y
