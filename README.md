@@ -9,49 +9,49 @@ After deploying the webservice template repository to your local machine using G
 ## Retrieving Data
 After the webservice console application has started, you can open a web browser and call any of the following URLs to obtain example data that has been set within the webservice template.
 
-http://localhost:8081/esd/data/alternate_codes
-http://localhost:8081/esd/data/attachments
-http://localhost:8081/esd/data/categories
-http://localhost:8081/esd/data/customer_accounts
-http://localhost:8081/esd/data/customer_account_addresses
-http://localhost:8081/esd/data/customer_account_contracts
-http://localhost:8081/esd/data/customer_account_enquiry_record?keyCustomerAccountID=1&recordType=INVOICE&keyRecordID=34652
-http://localhost:8081/esd/data/customer_account_enquiry_records?keyCustomerAccountID=1&recordType=INVOICE&beginDate=0&endDate=0&pageNumber=0&numberOfRecords=0&orderByField=&orderByDirection=&outstandingRecords=false&searchString=&keyRecordIDs=&searchType=
-http://localhost:8081/esd/data/customer_account_enquiry_line_report?keyCustomerAccountID=1&recordType=INVOICE&reportID=invoice_lines&orderByField=&orderByDirection=&pageNumber=0&numberOfRecords=0
-http://localhost:8081/esd/data/customer_account_status?keyCustomerAccountID=1&checkOnHold=Y&checkBalance=Y&checkTerms=Y
-http://localhost:8081/esd/data/downloads
-http://localhost:8081/esd/data/flags
-http://localhost:8081/esd/data/images
-http://localhost:8081/esd/data/item_groups
-http://localhost:8081/esd/data/item_relations
-http://localhost:8081/esd/data/kits
-http://localhost:8081/esd/data/labour
-http://localhost:8081/esd/data/locations
-http://localhost:8081/esd/data/payment_types
-http://localhost:8081/esd/data/price_level_pricing
-http://localhost:8081/esd/data/price_level_quantity_pricing
-http://localhost:8081/esd/data/price_customer_account_pricing
-http://localhost:8081/esd/data/price_customer_account_price?keyCustomerAccountID=ACC-123&keyProductID=ROD-123&quantity=10
-http://localhost:8081/esd/data/products
-http://localhost:8081/esd/data/price_levels
-http://localhost:8081/esd/data/product_combinations
-http://localhost:8081/esd/data/product_stock_quantities
-http://localhost:8081/esd/data/purchasers
-http://localhost:8081/esd/data/sales_reps
-http://localhost:8081/esd/data/sell_units
-http://localhost:8081/esd/data/supplier_accounts
-http://localhost:8081/esd/data/supplier_account_addresses
-http://localhost:8081/esd/data/sales_reps
-http://localhost:8081/esd/data/surcharges
-http://localhost:8081/esd/data/taxcodes
-http://localhost:8081/esd/data/webservice_status
+* http://localhost:8081/esd/data/alternate_codes
+* http://localhost:8081/esd/data/attachments
+* http://localhost:8081/esd/data/categories
+* http://localhost:8081/esd/data/customer_accounts
+* http://localhost:8081/esd/data/customer_account_addresses
+* http://localhost:8081/esd/data/customer_account_contracts
+* http://localhost:8081/esd/data/customer_account_enquiry_record?keyCustomerAccountID=1&recordType=INVOICE&keyRecordID=34652
+* http://localhost:8081/esd/data/customer_account_enquiry_records?keyCustomerAccountID=1&recordType=INVOICE&beginDate=0&endDate=0&pageNumber=0&numberOfRecords=0&orderByField=&orderByDirection=&outstandingRecords=false&searchString=&keyRecordIDs=&searchType=
+* http://localhost:8081/esd/data/customer_account_enquiry_line_report?keyCustomerAccountID=1&recordType=INVOICE&reportID=invoice_lines&orderByField=&orderByDirection=&pageNumber=0&numberOfRecords=0
+* http://localhost:8081/esd/data/customer_account_status?keyCustomerAccountID=1&checkOnHold=Y&checkBalance=Y&checkTerms=Y
+* http://localhost:8081/esd/data/downloads
+* http://localhost:8081/esd/data/flags
+* http://localhost:8081/esd/data/images
+* http://localhost:8081/esd/data/item_groups
+* http://localhost:8081/esd/data/item_relations
+* http://localhost:8081/esd/data/kits
+* http://localhost:8081/esd/data/labour
+* http://localhost:8081/esd/data/locations
+* http://localhost:8081/esd/data/payment_types
+* http://localhost:8081/esd/data/price_level_pricing
+* http://localhost:8081/esd/data/price_level_quantity_pricing
+* http://localhost:8081/esd/data/price_customer_account_pricing
+* http://localhost:8081/esd/data/price_customer_account_price?keyCustomerAccountID=ACC-123&keyProductID=ROD-123&quantity=10
+* http://localhost:8081/esd/data/products
+* http://localhost:8081/esd/data/price_levels
+* http://localhost:8081/esd/data/product_combinations
+* http://localhost:8081/esd/data/product_stock_quantities
+* http://localhost:8081/esd/data/purchasers
+* http://localhost:8081/esd/data/sales_reps
+* http://localhost:8081/esd/data/sell_units
+* http://localhost:8081/esd/data/supplier_accounts
+* http://localhost:8081/esd/data/supplier_account_addresses
+* http://localhost:8081/esd/data/sales_reps
+* http://localhost:8081/esd/data/surcharges
+* http://localhost:8081/esd/data/taxcodes
+* http://localhost:8081/esd/data/webservice_status
 
 ## Posting Data
 The following URLs can be called using a HTTP POST request with the body of the request being given and Ecommerce Standards Document based on the given type
-http://localhost:8081/esd/data/sales_orders
-http://localhost:8081/esd/data/purchase_orders
-http://localhost:8081/esd/data/customer_accounts
-http://localhost:8081/esd/data/customer_account_payments
+* http://localhost:8081/esd/data/sales_orders
+* http://localhost:8081/esd/data/purchase_orders
+* http://localhost:8081/esd/data/customer_accounts
+* http://localhost:8081/esd/data/customer_account_payments
 
 ## ESD Webservice Template Class Structure
 The webservice has been broken down into the following classes
@@ -78,5 +78,5 @@ The GZipMessageEncoderFactory, ESDWebserviceTemplate, GZipMessageEncodingBinding
 The ESD webservices template provides an example of how to build a webservice into a DotNet application. If it is to be implemented in a real world application the following things would need to be altered.
 * Removal of test data in the ESDWebServiceController.cs Instead you would need to place in code that retrieves data from some data source and fills the ESDocument with records. Typically requests would be made to ODBC or SQL Server based database.
 * Configuring settings to be read into the webservice. Rather than having settings hard coded into the application, separate files or databases should be used to read in the settings that dictate how the webservice is ran.
-* Adding additional security measures. This includes allowing basic HTTP authentication to be turned on (which can be done by changing the WEBSERVICE_REQUIRES_AUTHENTICATION property within the ESDWebServiceSettings.cs class). If the webservice is facing the internet then encryption should also be added to secure the data coming in and out of the webservice. This could be handled in several ways, such as placing the webservice behind an IIS, Apache, or Nginx web server which contains SSL/TLS certificates. Or else using other agreed upon encryption algorithms.
+* Adding additional security measures. This includes allowing basic HTTP authentication to be turned on (which can be done by changing the WEBSERVICE_REQUIRES_AUTHENTICATION property within the ESDWebServiceSettings.cs class). If the webservice is facing the internet then encryption should also be added to secure the data coming in and out of the webservice. This could be handled in several ways, such as placing the webservice behind an IIS, Apache, or Nginx web server which contains SSL/TLS certificates, or building HTTPS security into the webservice itself. Or else using other agreed upon encryption algorithms. Also ensuring that any configuration files used to tailor the webservice are also securely fastened, such as placing permissions on such files.
 * Allowing the webservice to run as a Windows service in the background. This ensures that at any time the webservice can be called to process a request. If the webservice crashes then a Windows service can be set to automatically restart itself which is usually mandatory for uptime guarantees. 
