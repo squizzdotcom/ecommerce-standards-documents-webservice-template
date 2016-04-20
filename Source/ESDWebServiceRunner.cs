@@ -17,7 +17,7 @@ namespace ESDWebserviceTemplate
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Creating ESD Web Service");
+            Console.WriteLine(DateTime.Now.ToString(ESDWebServiceSettings.WEBSERVICE_DATE_LOG_FORMAT) + " " + "Creating ESD Web Service");
 
             WebServiceHost webserviceHost = null;
 
@@ -45,15 +45,15 @@ namespace ESDWebserviceTemplate
                 //start up the webservice 
                 webserviceHost.Open();
 
-                Console.WriteLine("ESD Web Service initialised and listing for HTTP requests on " + ESDWebServiceSettings.WEBSERVICE_URL + ":" + ESDWebServiceSettings.WEBSERVICE_PORT + "/" + ESDWebServiceSettings.WEBSERVICE_URL_DIRECTORY);
-                Console.WriteLine("Press any key to quit");
+                Console.WriteLine(DateTime.Now.ToString(ESDWebServiceSettings.WEBSERVICE_DATE_LOG_FORMAT) + " " + "ESD Web Service initialised and listing for HTTP requests on " + ESDWebServiceSettings.WEBSERVICE_URL + ":" + ESDWebServiceSettings.WEBSERVICE_PORT + "/" + ESDWebServiceSettings.WEBSERVICE_URL_DIRECTORY);
+                Console.WriteLine("Press enter key to quit");
                 Console.ReadLine();
             }
             catch (Exception e)
             {
                 webserviceHost = null;
-                Console.WriteLine("ESD Web Service could not be started due to an error: " + e.Message);
-                Console.WriteLine("Press any key to quit");
+                Console.WriteLine(DateTime.Now.ToString(ESDWebServiceSettings.WEBSERVICE_DATE_LOG_FORMAT) + " " + "ESD Web Service could not be started due to an error: " + e.Message);
+                Console.WriteLine("Press enter key to quit");
                 Console.ReadLine();
             }
         }

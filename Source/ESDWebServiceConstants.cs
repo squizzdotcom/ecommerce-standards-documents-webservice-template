@@ -27,6 +27,10 @@ namespace ESDWebserviceTemplate
         public static readonly string ESD_ACCOUNT_TERMS_DMAE = "DMAE";
         public static readonly string ESD_ACCOUNT_TERMS_COD = "COD";
         public static readonly string ESD_ACCOUNT_TERMS_NA = "NA";
+        public const int ESD_ENDPOINT_METHOD_GET_START = 1;
+        public const int ESD_ENDPOINT_METHOD_GET_END = 2;
+        public const int ESD_ENDPOINT_METHOD_POST_START = 3;
+        public const int ESD_ENDPOINT_METHOD_POST_END = 4;
 
 
         // Identifiers of the ESD webservice end points
@@ -116,6 +120,11 @@ namespace ESDWebserviceTemplate
             { ESD_ENDPOINT_ID_ORDER_PURCHASES, "Purchase Orders"}
         };
 
+        public static readonly string LANG_ESD_ENDPOINT_GET_LOG_START = "GET: Request for %1 data.";
+        public static readonly string LANG_ESD_ENDPOINT_GET_LOG_END = "GET: Request for %1 data completed. \"%2\"";
+        public static readonly string LANG_ESD_ENDPOINT_POST_LOG_START = "POST: Request pushing %1 data.";
+        public static readonly string LANG_ESD_ENDPOINT_POST_LOG_END = "POST: Request pushing %1 data has completed. \"%2\".";
+
         // Dictionary that maps results of ESD webservice processing to meaningful messages
         //Typically language files would be separately created to handle this functionality for each supported language
         public static readonly Dictionary<int, string> LANG_ESD_RESULT_MESSAGES = new Dictionary<int, string>() {
@@ -156,6 +165,37 @@ namespace ESDWebserviceTemplate
             }
 
             return message.Replace("%1", endpointName);
+        }
+
+        /// <summary>Logs a message to the console output</summary>
+        /// <param name="endpointID">ID of the webservice endpoint</param>
+        /// <param name="requestMethod">Method used in the HTTP request</param>
+        /// <param name="message">Additional information to be outputted</param>
+        public static void outputConsoleMessage(int endpointID, int requestMethod, string message)
+        {
+            //obtain the name of the endpoint
+            string endpointName = "";
+            if (!LANG_ESD_ENDPOINTS.TryGetValue(endpointID, out endpointName))
+            {
+                endpointName = LANG_ESD_ENDPOINTS[0];
+            }
+
+            // output the console message based on request method handling the webservice request
+            switch (requestMethod)
+            {
+                case ESD_ENDPOINT_METHOD_GET_START:
+                    Console.WriteLine(DateTime.Now.ToString(ESDWebServiceSettings.WEBSERVICE_DATE_LOG_FORMAT) + " " + LANG_ESD_ENDPOINT_GET_LOG_START.Replace("%1", endpointName));
+                    break;
+                case ESD_ENDPOINT_METHOD_GET_END:
+                    Console.WriteLine(DateTime.Now.ToString(ESDWebServiceSettings.WEBSERVICE_DATE_LOG_FORMAT) + " " + LANG_ESD_ENDPOINT_GET_LOG_END.Replace("%1", endpointName).Replace("%2", message));
+                    break;
+                case ESD_ENDPOINT_METHOD_POST_START:
+                    Console.WriteLine(DateTime.Now.ToString(ESDWebServiceSettings.WEBSERVICE_DATE_LOG_FORMAT) + " " + LANG_ESD_ENDPOINT_GET_LOG_START.Replace("%1", endpointName));
+                    break;
+                case ESD_ENDPOINT_METHOD_POST_END:
+                    Console.WriteLine(DateTime.Now.ToString(ESDWebServiceSettings.WEBSERVICE_DATE_LOG_FORMAT) + " " + LANG_ESD_ENDPOINT_GET_LOG_END.Replace("%1", endpointName).Replace("%2", message));
+                    break;
+            }
         }
     }
 }

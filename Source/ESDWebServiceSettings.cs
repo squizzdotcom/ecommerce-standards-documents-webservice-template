@@ -16,6 +16,7 @@ namespace ESDWebserviceTemplate
         public static readonly string WEBSERVICE_PORT = "8081";
         public static readonly string WEBSERVICE_URL = "http://localhost";
         public static readonly string WEBSERVICE_URL_DIRECTORY = "esd";
+        public static readonly string WEBSERVICE_DATE_LOG_FORMAT = "dd/MM/yyyy hh:mm:ss";
 
         //settings to authenticate request to the webserivce
         private static readonly string WEBSERVICE_LOGIN_USER_NAME = "user";

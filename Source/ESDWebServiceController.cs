@@ -23,6 +23,8 @@ namespace ESDWebserviceTemplate
         /// <returns>Serialized Ecommerce Standards Document in the JSON data format</returns>
         public System.ServiceModel.Channels.Message getAlternateCodes()
         {
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_ALTERNATE_CODES, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_START, "");
+
             //create Ecommerce standards document for storing records
             Dictionary<string, string> esDocumentConfigs = new Dictionary<string, string>();
             ESDocumentAlternateCode esDocumentAlternateCodes = new ESDocumentAlternateCode(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_ALTERNATE_CODES, ESDocumentConstants.RESULT_ERROR_UNKNOWN), new ESDRecordAlternateCode[]{}, esDocumentConfigs);
@@ -73,6 +75,9 @@ namespace ESDWebserviceTemplate
                 esDocumentAlternateCodes.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING;
             }
 
+            //output message to the console
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_ALTERNATE_CODES, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_END, esDocumentAlternateCodes.message);
+
             //serializes the ESD document into 
             return serializeESDocument(esDocumentAlternateCodes);
         }
@@ -81,6 +86,8 @@ namespace ESDWebserviceTemplate
         /// <returns>Serialized Ecommerce Standards Document in the JSON data format</returns>
         public System.ServiceModel.Channels.Message getAttachments()
         {
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_ATTACHMENTS, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_START, "");
+
             //create Ecommerce standards document for storing records
             Dictionary<string, string> esDocumentConfigs = new Dictionary<string, string>();
             ESDocumentAttachment esDocumentAttachments = new ESDocumentAttachment(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_ATTACHMENTS, ESDocumentConstants.RESULT_ERROR_UNKNOWN), new ESDRecordAttachment[]{}, esDocumentConfigs);
@@ -135,6 +142,9 @@ namespace ESDWebserviceTemplate
                 esDocumentAttachments.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING;
             }
 
+            //output message to the console
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_ATTACHMENTS, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_END, esDocumentAttachments.message);
+
             //serializes the ESD document into 
             return serializeESDocument(esDocumentAttachments);
         }
@@ -143,9 +153,11 @@ namespace ESDWebserviceTemplate
         /// <returns>Serialized Ecommerce Standards Document in the JSON data format</returns>
         public System.ServiceModel.Channels.Message getAttributes()
         {
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_ATTRIBUTES, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_START, "");
+
             //create Ecommerce standards document for storing records
             Dictionary<string, string> esDocumentConfigs = new Dictionary<string, string>();
-            ESDocumentAttribute esDocumentAlternateCodes = new ESDocumentAttribute(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_ATTRIBUTES, ESDocumentConstants.RESULT_ERROR_UNKNOWN), new ESDRecordAttributeProfile[]{}, new ESDRecordAttributeValue[]{}, esDocumentConfigs);
+            ESDocumentAttribute esDocumentAttributes = new ESDocumentAttribute(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_ATTRIBUTES, ESDocumentConstants.RESULT_ERROR_UNKNOWN), new ESDRecordAttributeProfile[]{}, new ESDRecordAttributeValue[]{}, esDocumentConfigs);
 
             try
             {
@@ -212,32 +224,37 @@ namespace ESDWebserviceTemplate
                     attributeValues.Add(attributeValueRecord);
 
                     //update the details of the document after all records have sucessfully been obtained
-                    esDocumentAlternateCodes.dataRecords = attributeValues.ToArray();
-                    esDocumentAlternateCodes.totalDataRecords = attributeValues.Count;
-                    esDocumentAlternateCodes.attributeProfiles = attributeProfileRecords.ToArray();
-                    esDocumentAlternateCodes.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_ATTRIBUTES, ESDocumentConstants.RESULT_SUCCESS);
-                    esDocumentAlternateCodes.resultStatus = ESDocumentConstants.RESULT_SUCCESS;
+                    esDocumentAttributes.dataRecords = attributeValues.ToArray();
+                    esDocumentAttributes.totalDataRecords = attributeValues.Count;
+                    esDocumentAttributes.attributeProfiles = attributeProfileRecords.ToArray();
+                    esDocumentAttributes.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_ATTRIBUTES, ESDocumentConstants.RESULT_SUCCESS);
+                    esDocumentAttributes.resultStatus = ESDocumentConstants.RESULT_SUCCESS;
                 }
                 else
                 {
-                    esDocumentAlternateCodes.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_ATTRIBUTES, ESDocumentConstants.RESULT_ERROR_CONNECTOR_INVALID_CREDENTIALS);
-                    esDocumentAlternateCodes.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_INVALID_CREDENTIALS;
+                    esDocumentAttributes.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_ATTRIBUTES, ESDocumentConstants.RESULT_ERROR_CONNECTOR_INVALID_CREDENTIALS);
+                    esDocumentAttributes.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_INVALID_CREDENTIALS;
                 }
             }
             catch (Exception ex)
             {
-                esDocumentAlternateCodes.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_ATTRIBUTES, ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING);
-                esDocumentAlternateCodes.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING;
+                esDocumentAttributes.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_ATTRIBUTES, ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING);
+                esDocumentAttributes.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING;
             }
 
+            //output message to the console
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_ATTRIBUTES, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_END, esDocumentAttributes.message);
+
             //serializes the ESD document into 
-            return serializeESDocument(esDocumentAlternateCodes);
+            return serializeESDocument(esDocumentAttributes);
         }
 
         /// <summary>Obtains an Ecommerce Standards Document containing an array of categories records and associations to products, downloads, or labour</summary>
         /// <returns>Serialized Ecommerce Standards Document in the JSON data format</returns>
         public System.ServiceModel.Channels.Message getCategories()
         {
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CATEGORIES, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_START, "");
+
             //create Ecommerce standards document for storing records
             Dictionary<string, string> esDocumentConfigs = new Dictionary<string, string>();
             ESDocumentCategory esDocumentCategories = new ESDocumentCategory(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CATEGORIES, ESDocumentConstants.RESULT_ERROR_UNKNOWN), new ESDRecordCategory[]{}, esDocumentConfigs);
@@ -306,7 +323,10 @@ namespace ESDWebserviceTemplate
                 esDocumentCategories.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING;
             }
 
-            //serializes the ESD document into 
+            //output message to the console
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CATEGORIES, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_END, esDocumentCategories.message);
+
+            //serializes the ESD document 
             return serializeESDocument(esDocumentCategories);
         }
 
@@ -314,6 +334,8 @@ namespace ESDWebserviceTemplate
         /// <returns>Serialized Ecommerce Standards Document in the JSON data format</returns>
         public System.ServiceModel.Channels.Message getCustomerAccounts()
         {
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNTS, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_START, "");
+
             //create Ecommerce standards document for storing records
             Dictionary<string, string> esDocumentConfigs = new Dictionary<string, string>();
             ESDocumentCustomerAccount esDocumentCustomerAccounts = new ESDocumentCustomerAccount(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNTS, ESDocumentConstants.RESULT_ERROR_UNKNOWN), new ESDRecordCustomerAccount[]{}, esDocumentConfigs);
@@ -381,7 +403,10 @@ namespace ESDWebserviceTemplate
                 esDocumentCustomerAccounts.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING;
             }
 
-            //serializes the ESD document into 
+            //output message to the console
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNTS, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_END, esDocumentCustomerAccounts.message);
+
+            //serializes the ESD document 
             return serializeESDocument(esDocumentCustomerAccounts);
         }
 
@@ -389,6 +414,8 @@ namespace ESDWebserviceTemplate
         /// <returns>Serialized Ecommerce Standards Document in the JSON data format</returns>
         public System.ServiceModel.Channels.Message getCustomerAccountAddresses()
         {
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNT_ADDRESSES, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_START, "");
+
             //create Ecommerce standards document for storing records
             Dictionary<string, string> esDocumentConfigs = new Dictionary<string, string>();
             ESDocumentCustomerAccountAddress esDocumentCustomerAccountAddresses = new ESDocumentCustomerAccountAddress(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNT_ADDRESSES, ESDocumentConstants.RESULT_ERROR_UNKNOWN), new ESDRecordCustomerAccountAddress[] { }, esDocumentConfigs);
@@ -444,6 +471,9 @@ namespace ESDWebserviceTemplate
                 esDocumentCustomerAccountAddresses.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING;
             }
 
+            //output message to the console
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNT_ADDRESSES, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_END, esDocumentCustomerAccountAddresses.message);
+
             //serializes the ESD document into 
             return serializeESDocument(esDocumentCustomerAccountAddresses);
         }
@@ -452,6 +482,8 @@ namespace ESDWebserviceTemplate
         /// <returns>Serialized Ecommerce Standards Document in the JSON data format</returns>
         public System.ServiceModel.Channels.Message getCustomerAccountContracts()
         {
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNT_CONTRACTS, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_START, "");
+
             //create Ecommerce standards document for storing records
             Dictionary<string, string> esDocumentConfigs = new Dictionary<string, string>();
             ESDocumentCustomerAccountContract esDocumentCustomerAccountContract = new ESDocumentCustomerAccountContract(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNT_CONTRACTS, ESDocumentConstants.RESULT_ERROR_UNKNOWN), new ESDRecordCustomerAccountContract[]{}, esDocumentConfigs);
@@ -499,6 +531,9 @@ namespace ESDWebserviceTemplate
                 esDocumentCustomerAccountContract.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING;
             }
 
+            //output message to the console
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNT_CONTRACTS, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_END, esDocumentCustomerAccountContract.message);
+
             //serializes the ESD document into 
             return serializeESDocument(esDocumentCustomerAccountContract);
         }
@@ -507,9 +542,11 @@ namespace ESDWebserviceTemplate
         /// <returns>Serialized Ecommerce Standards Document in the JSON data format</returns>
         public System.ServiceModel.Channels.Message getCustomerAccountEnquiryRecord(string keyCustomerAccountID, string recordType, string keyRecordID)
         {
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNT_ENQUIRY_RECORD, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_START, "");
+
             //create Ecommerce standards document for storing records
             Dictionary<string, string> esDocumentConfigs = new Dictionary<string, string>();
-            ESDocumentCustomerAccountEnquiry esDocumentCustomerAccountEnquiry = new ESDocumentCustomerAccountEnquiry(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNT_ENQUIRY, ESDocumentConstants.RESULT_ERROR_UNKNOWN), esDocumentConfigs);
+            ESDocumentCustomerAccountEnquiry esDocumentCustomerAccountEnquiry = new ESDocumentCustomerAccountEnquiry(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNT_ENQUIRY_RECORD, ESDocumentConstants.RESULT_ERROR_UNKNOWN), esDocumentConfigs);
 
             try
             {
@@ -554,7 +591,7 @@ namespace ESDWebserviceTemplate
                             record.billingStateProvince = "Victoria";
                             record.billingCountry = "Australia";
                             record.taxNumber = "GST";
-                            record.taxLabel = 0;
+                            record.taxLabel = "Goods and Services Tax";
                             record.taxRate = 10;
                             record.totalExTax = (decimal)110.00;
                             record.totalIncTax = (decimal)121.00;
@@ -664,22 +701,25 @@ namespace ESDWebserviceTemplate
                     }
                     
                     //update the details of the document after all records have sucessfully been obtained
-                    esDocumentCustomerAccountEnquiry.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNT_ENQUIRY, ESDocumentConstants.RESULT_SUCCESS);
+                    esDocumentCustomerAccountEnquiry.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNT_ENQUIRY_RECORD, ESDocumentConstants.RESULT_SUCCESS);
                     esDocumentCustomerAccountEnquiry.resultStatus = ESDocumentConstants.RESULT_SUCCESS;
                 }
                 else
                 {
-                    esDocumentCustomerAccountEnquiry.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNT_ENQUIRY, ESDocumentConstants.RESULT_ERROR_CONNECTOR_INVALID_CREDENTIALS);
+                    esDocumentCustomerAccountEnquiry.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNT_ENQUIRY_RECORD, ESDocumentConstants.RESULT_ERROR_CONNECTOR_INVALID_CREDENTIALS);
                     esDocumentCustomerAccountEnquiry.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_INVALID_CREDENTIALS;
                 }
             }
             catch (Exception ex)
             {
-                esDocumentCustomerAccountEnquiry.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNT_ENQUIRY, ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING);
+                esDocumentCustomerAccountEnquiry.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNT_ENQUIRY_RECORD, ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING);
                 esDocumentCustomerAccountEnquiry.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING;
             }
 
-            //serializes the ESD document into 
+            //output message to the console
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNT_ENQUIRY_RECORD, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_END, esDocumentCustomerAccountEnquiry.message);
+
+            //serializes the ESD document
             return serializeESDocument(esDocumentCustomerAccountEnquiry);
         }
 
@@ -687,6 +727,8 @@ namespace ESDWebserviceTemplate
         /// <returns>Serialized Ecommerce Standards Document in the JSON data format</returns>
         public System.ServiceModel.Channels.Message getCustomerAccountEnquiry(string keyCustomerAccountID, string recordType, long beginDate, long endDate, int pageNumber, int numberOfRecords, string orderByField, string orderByDirection, string outstandingRecords, string searchString, string keyRecordIDs, string searchType)
         {
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNT_ENQUIRY, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_START, "");
+
             //create Ecommerce standards document for storing records
             Dictionary<string, string> esDocumentConfigs = new Dictionary<string, string>();
             ESDocumentCustomerAccountEnquiry esDocumentCustomerAccountEnquiry = new ESDocumentCustomerAccountEnquiry(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNT_ENQUIRY, ESDocumentConstants.RESULT_ERROR_UNKNOWN), esDocumentConfigs);
@@ -743,7 +785,7 @@ namespace ESDWebserviceTemplate
                             record.billingStateProvince = "Victoria";
                             record.billingCountry = "Australia";
                             record.taxNumber = "GST";
-                            record.taxLabel = 0;
+                            record.taxLabel = "Goods and Services Tax";
                             record.taxRate = 10;
                             record.totalExTax = (decimal)110.00;
                             record.totalIncTax = (decimal)121.00;
@@ -824,22 +866,25 @@ namespace ESDWebserviceTemplate
                         esDocumentCustomerAccountEnquiry.totalDataRecords = records.Count;
                     }
 
-                    esDocumentCustomerAccountEnquiry.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_ALTERNATE_CODES, ESDocumentConstants.RESULT_SUCCESS);
+                    esDocumentCustomerAccountEnquiry.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNT_ENQUIRY, ESDocumentConstants.RESULT_SUCCESS);
                     esDocumentCustomerAccountEnquiry.resultStatus = ESDocumentConstants.RESULT_SUCCESS;
                 }
                 else
                 {
-                    esDocumentCustomerAccountEnquiry.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_ALTERNATE_CODES, ESDocumentConstants.RESULT_ERROR_CONNECTOR_INVALID_CREDENTIALS);
+                    esDocumentCustomerAccountEnquiry.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNT_ENQUIRY, ESDocumentConstants.RESULT_ERROR_CONNECTOR_INVALID_CREDENTIALS);
                     esDocumentCustomerAccountEnquiry.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_INVALID_CREDENTIALS;
                 }
             }
             catch (Exception ex)
             {
-                esDocumentCustomerAccountEnquiry.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_ALTERNATE_CODES, ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING);
+                esDocumentCustomerAccountEnquiry.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNT_ENQUIRY, ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING);
                 esDocumentCustomerAccountEnquiry.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING;
             }
 
-            //serializes the ESD document into 
+            //output message to the console
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNT_ENQUIRY, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_END, esDocumentCustomerAccountEnquiry.message);
+
+            //serializes the ESD document
             return serializeESDocument(esDocumentCustomerAccountEnquiry);
         }
 
@@ -847,6 +892,8 @@ namespace ESDWebserviceTemplate
         /// <returns>Serialized Ecommerce Standards Document in the JSON data format</returns>
         public System.ServiceModel.Channels.Message getCustomerAccountEnquiryLineReport(string keyCustomerAccountID, string recordType, string reportID, string orderByField, string orderByDirection, int pageNumber, int numberOfRecords)
         {
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNT_ENQUIRY_LINE_REPORT, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_START, "");
+
             //create Ecommerce standards document for storing records
             Dictionary<string, string> esDocumentConfigs = new Dictionary<string, string>();
             ESDocumentCustomerAccountEnquiryLine esDocumentCustomerAccountEnquiryLine = new ESDocumentCustomerAccountEnquiryLine(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNT_ENQUIRY_LINE_REPORT, ESDocumentConstants.RESULT_ERROR_UNKNOWN), esDocumentConfigs);
@@ -989,6 +1036,9 @@ namespace ESDWebserviceTemplate
                 esDocumentCustomerAccountEnquiryLine.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING;
             }
 
+            //output message to the console
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNT_ENQUIRY_LINE_REPORT, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_END, esDocumentCustomerAccountEnquiryLine.message);
+
             //serializes the ESD document into 
             return serializeESDocument(esDocumentCustomerAccountEnquiryLine);
         }
@@ -997,9 +1047,11 @@ namespace ESDWebserviceTemplate
         /// <returns>Serialized Ecommerce Standards Document in the JSON data format</returns>
         public System.ServiceModel.Channels.Message getCustomerAccountStatus(string keyCustomerAccountID, string checkOnHold, string checkBalance, string checkTerms)
         {
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNT_STATUS, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_START, "");
+
             //create Ecommerce standards document for storing records
             Dictionary<string, string> esDocumentConfigs = new Dictionary<string, string>();
-            ESDocumentCustomerAccount esDocumentCustomerAccounts = new ESDocumentCustomerAccount(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNTS, ESDocumentConstants.RESULT_ERROR_UNKNOWN), new ESDRecordCustomerAccount[] { }, esDocumentConfigs);
+            ESDocumentCustomerAccount esDocumentCustomerAccounts = new ESDocumentCustomerAccount(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNT_STATUS, ESDocumentConstants.RESULT_ERROR_UNKNOWN), new ESDRecordCustomerAccount[] { }, esDocumentConfigs);
 
             try
             {
@@ -1056,7 +1108,7 @@ namespace ESDWebserviceTemplate
                     //update the details of the document after all records have sucessfully been obtained
                     esDocumentCustomerAccounts.dataRecords = records.ToArray();
                     esDocumentCustomerAccounts.totalDataRecords = records.Count;
-                    esDocumentCustomerAccounts.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNTS, ESDocumentConstants.RESULT_SUCCESS);
+                    esDocumentCustomerAccounts.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNT_STATUS, ESDocumentConstants.RESULT_SUCCESS);
                     esDocumentCustomerAccounts.resultStatus = ESDocumentConstants.RESULT_SUCCESS;
 
                     // add a document config that specifies all of the record properties that may contain data in the document
@@ -1065,15 +1117,18 @@ namespace ESDWebserviceTemplate
                 }
                 else
                 {
-                    esDocumentCustomerAccounts.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNTS, ESDocumentConstants.RESULT_ERROR_CONNECTOR_INVALID_CREDENTIALS);
+                    esDocumentCustomerAccounts.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNT_STATUS, ESDocumentConstants.RESULT_ERROR_CONNECTOR_INVALID_CREDENTIALS);
                     esDocumentCustomerAccounts.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_INVALID_CREDENTIALS;
                 }
             }
             catch (Exception ex)
             {
-                esDocumentCustomerAccounts.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNTS, ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING);
+                esDocumentCustomerAccounts.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNT_STATUS, ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING);
                 esDocumentCustomerAccounts.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING;
             }
+
+            //output message to the console
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNT_STATUS, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_END, esDocumentCustomerAccounts.message);
 
             //serializes the ESD document into 
             return serializeESDocument(esDocumentCustomerAccounts);
@@ -1083,9 +1138,11 @@ namespace ESDWebserviceTemplate
         /// <returns>Serialized Ecommerce Standards Document in the JSON data format</returns>
         public System.ServiceModel.Channels.Message getDownloads()
         {
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_DOWNLOADS, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_START, "");
+
             //create Ecommerce standards document for storing records
             Dictionary<string, string> esDocumentConfigs = new Dictionary<string, string>();
-            ESDocumentDownload esDocumentDownload = new ESDocumentDownload(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_ALTERNATE_CODES, ESDocumentConstants.RESULT_ERROR_UNKNOWN), new ESDRecordProduct[]{}, esDocumentConfigs);
+            ESDocumentDownload esDocumentDownload = new ESDocumentDownload(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_DOWNLOADS, ESDocumentConstants.RESULT_ERROR_UNKNOWN), new ESDRecordDownload[]{}, esDocumentConfigs);
 
             try
             {
@@ -1094,13 +1151,13 @@ namespace ESDWebserviceTemplate
                 {
                     //obtain record data
                     //This is where you would call a database or other data source to obtain and place data into the standards record objects
-                    List<ESDRecordProduct> records = new List<ESDRecordProduct>();
+                    List<ESDRecordDownload> records = new List<ESDRecordDownload>();
                     
 
                     //update the details of the document after all records have sucessfully been obtained
                     esDocumentDownload.dataRecords = records.ToArray();
                     esDocumentDownload.totalDataRecords = records.Count;
-                    esDocumentDownload.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_ALTERNATE_CODES, ESDocumentConstants.RESULT_SUCCESS);
+                    esDocumentDownload.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_DOWNLOADS, ESDocumentConstants.RESULT_SUCCESS);
                     esDocumentDownload.resultStatus = ESDocumentConstants.RESULT_SUCCESS;
 
                     // add a document config that specifies all of the record properties that may contain data in the document
@@ -1109,15 +1166,18 @@ namespace ESDWebserviceTemplate
                 }
                 else
                 {
-                    esDocumentDownload.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_ALTERNATE_CODES, ESDocumentConstants.RESULT_ERROR_CONNECTOR_INVALID_CREDENTIALS);
+                    esDocumentDownload.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_DOWNLOADS, ESDocumentConstants.RESULT_ERROR_CONNECTOR_INVALID_CREDENTIALS);
                     esDocumentDownload.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_INVALID_CREDENTIALS;
                 }
             }
             catch (Exception ex)
             {
-                esDocumentDownload.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_ALTERNATE_CODES, ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING);
+                esDocumentDownload.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_DOWNLOADS, ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING);
                 esDocumentDownload.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING;
             }
+
+            //output message to the console
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_DOWNLOADS, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_END, esDocumentDownload.message);
 
             //serializes the ESD document into 
             return serializeESDocument(esDocumentDownload);
@@ -1127,9 +1187,11 @@ namespace ESDWebserviceTemplate
         /// <returns>Serialized Ecommerce Standards Document in the JSON data format</returns>
         public System.ServiceModel.Channels.Message getFlags()
         {
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_FLAGS, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_START, "");
+
             //create Ecommerce standards document for storing records
             Dictionary<string, string> esDocumentConfigs = new Dictionary<string, string>();
-            ESDocumentFlag esDocumentFlags = new ESDocumentFlag(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_ALTERNATE_CODES, ESDocumentConstants.RESULT_ERROR_UNKNOWN), new ESDRecordFlagMapping[]{}, esDocumentConfigs);
+            ESDocumentFlag esDocumentFlags = new ESDocumentFlag(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_FLAGS, ESDocumentConstants.RESULT_ERROR_UNKNOWN), new ESDRecordFlagMapping[]{}, esDocumentConfigs);
 
             try
             {
@@ -1181,7 +1243,7 @@ namespace ESDWebserviceTemplate
                     esDocumentFlags.flagRecords = flagRecords.ToArray();
                     esDocumentFlags.dataRecords = mappingRecords.ToArray();
                     esDocumentFlags.totalDataRecords = mappingRecords.Count;
-                    esDocumentFlags.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_ALTERNATE_CODES, ESDocumentConstants.RESULT_SUCCESS);
+                    esDocumentFlags.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_FLAGS, ESDocumentConstants.RESULT_SUCCESS);
                     esDocumentFlags.resultStatus = ESDocumentConstants.RESULT_SUCCESS;
 
                     // add a document config that specifies all of the record properties that may contain data in the document
@@ -1190,17 +1252,20 @@ namespace ESDWebserviceTemplate
                 }
                 else
                 {
-                    esDocumentFlags.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_ALTERNATE_CODES, ESDocumentConstants.RESULT_ERROR_CONNECTOR_INVALID_CREDENTIALS);
+                    esDocumentFlags.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_FLAGS, ESDocumentConstants.RESULT_ERROR_CONNECTOR_INVALID_CREDENTIALS);
                     esDocumentFlags.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_INVALID_CREDENTIALS;
                 }
             }
             catch (Exception ex)
             {
-                esDocumentFlags.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_ALTERNATE_CODES, ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING);
+                esDocumentFlags.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_FLAGS, ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING);
                 esDocumentFlags.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING;
             }
 
-            //serializes the ESD document into 
+            //output message to the console
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_FLAGS, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_END, esDocumentFlags.message);
+
+            //serializes the ESD document
             return serializeESDocument(esDocumentFlags);
         }
 
@@ -1208,6 +1273,8 @@ namespace ESDWebserviceTemplate
         /// <returns>Serialized Ecommerce Standards Document in the JSON data format</returns>
         public System.ServiceModel.Channels.Message getImages()
         {
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_IMAGES, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_START, "");
+
             //create Ecommerce standards document for storing records
             Dictionary<string, string> esDocumentConfigs = new Dictionary<string, string>();
             ESDocumentImage esDocumentImages = new ESDocumentImage(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_IMAGES, ESDocumentConstants.RESULT_ERROR_UNKNOWN), new ESDRecordImage[] { }, esDocumentConfigs);
@@ -1263,6 +1330,9 @@ namespace ESDWebserviceTemplate
                 esDocumentImages.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING;
             }
 
+            //output message to the console
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_IMAGES, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_END, esDocumentImages.message);
+
             //serializes the ESD document into 
             return serializeESDocument(esDocumentImages);
         }
@@ -1271,6 +1341,8 @@ namespace ESDWebserviceTemplate
         /// <returns>Serialized Ecommerce Standards Document in the JSON data format</returns>
         public System.ServiceModel.Channels.Message getItemGroups()
         {
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_ITEM_GROUPS, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_START, "");
+
             //create Ecommerce standards document for storing records
             Dictionary<string, string> esDocumentConfigs = new Dictionary<string, string>();
             ESDocumentItemGroup esDocumentItemGroup = new ESDocumentItemGroup(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_ITEM_GROUPS, ESDocumentConstants.RESULT_ERROR_UNKNOWN), new ESDRecordItemGroup[] { }, esDocumentConfigs);
@@ -1329,6 +1401,9 @@ namespace ESDWebserviceTemplate
                 esDocumentItemGroup.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING;
             }
 
+            //output message to the console
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_ITEM_GROUPS, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_END, esDocumentItemGroup.message);
+
             //serializes the ESD document into 
             return serializeESDocument(esDocumentItemGroup);
         }
@@ -1337,6 +1412,8 @@ namespace ESDWebserviceTemplate
         /// <returns>Serialized Ecommerce Standards Document in the JSON data format</returns>
         public System.ServiceModel.Channels.Message getItemRelations()
         {
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_ITEM_RELATIONS, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_START, "");
+
             //create Ecommerce standards document for storing records
             Dictionary<string, string> esDocumentConfigs = new Dictionary<string, string>();
             ESDocumentItemRelation esDocumentItemRelations = new ESDocumentItemRelation(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_ITEM_RELATIONS, ESDocumentConstants.RESULT_ERROR_UNKNOWN), new ESDRecordItemRelation[] { }, esDocumentConfigs);
@@ -1391,6 +1468,9 @@ namespace ESDWebserviceTemplate
                 esDocumentItemRelations.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING;
             }
 
+            //output message to the console
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_ITEM_RELATIONS, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_END, esDocumentItemRelations.message);
+
             //serializes the ESD document into 
             return serializeESDocument(esDocumentItemRelations);
         }
@@ -1399,6 +1479,8 @@ namespace ESDWebserviceTemplate
         /// <returns>Serialized Ecommerce Standards Document in the JSON data format</returns>
         public System.ServiceModel.Channels.Message getKits()
         {
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_KITS, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_START, "");
+
             //create Ecommerce standards document for storing records
             Dictionary<string, string> esDocumentConfigs = new Dictionary<string, string>();
             ESDocumentKit esDocumentKits = new ESDocumentKit(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_KITS, ESDocumentConstants.RESULT_ERROR_UNKNOWN), new ESDRecordKitComponent[]{}, esDocumentConfigs);
@@ -1461,7 +1543,10 @@ namespace ESDWebserviceTemplate
                 esDocumentKits.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING;
             }
 
-            //serializes the ESD document into 
+            //output message to the console
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_KITS, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_END, esDocumentKits.message);
+
+            //serializes the ESD document
             return serializeESDocument(esDocumentKits);
         }
 
@@ -1469,9 +1554,11 @@ namespace ESDWebserviceTemplate
         /// <returns>Serialized Ecommerce Standards Document in the JSON data format</returns>
         public System.ServiceModel.Channels.Message getLabour()
         {
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_LABOUR, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_START, "");
+
             //create Ecommerce standards document for storing records
             Dictionary<string, string> esDocumentConfigs = new Dictionary<string, string>();
-            ESDocumentLabour esDocumentLabour = new ESDocumentLabour(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_LABOUR, ESDocumentConstants.RESULT_ERROR_UNKNOWN), null, esDocumentConfigs);
+            ESDocumentLabour esDocumentLabour = new ESDocumentLabour(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_LABOUR, ESDocumentConstants.RESULT_ERROR_UNKNOWN), new ESDRecordLabour[]{}, esDocumentConfigs);
 
             try
             {
@@ -1480,7 +1567,7 @@ namespace ESDWebserviceTemplate
                 {
                     //obtain record data
                     //This is where you would call a database or other data source to obtain and place data into the standards record objects
-                    List<ESDRecordProduct> records = new List<ESDRecordProduct>();
+                    List<ESDRecordLabour> records = new List<ESDRecordLabour>();
 
                     //update the details of the document after all records have sucessfully been obtained
                     esDocumentLabour.dataRecords = records.ToArray();
@@ -1504,6 +1591,9 @@ namespace ESDWebserviceTemplate
                 esDocumentLabour.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING;
             }
 
+            //output message to the console
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_LABOUR, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_END, esDocumentLabour.message);
+
             //serializes the ESD document into 
             return serializeESDocument(esDocumentLabour);
         }
@@ -1512,6 +1602,8 @@ namespace ESDWebserviceTemplate
         /// <returns>Serialized Ecommerce Standards Document in the JSON data format</returns>
         public System.ServiceModel.Channels.Message getLocations()
         {
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_LOCATIONS, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_START, "");
+
             //create Ecommerce standards document for storing records
             Dictionary<string, string> esDocumentConfigs = new Dictionary<string, string>();
             ESDocumentLocation esDocumentLocations = new ESDocumentLocation(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_LOCATIONS, ESDocumentConstants.RESULT_ERROR_UNKNOWN), new ESDRecordLocation[] { }, esDocumentConfigs);
@@ -1605,7 +1697,10 @@ namespace ESDWebserviceTemplate
                 esDocumentLocations.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING;
             }
 
-            //serializes the ESD document into 
+            //output message to the console
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_LOCATIONS, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_END, esDocumentLocations.message);
+
+            //serializes the ESD document
             return serializeESDocument(esDocumentLocations);
         }
 
@@ -1613,6 +1708,8 @@ namespace ESDWebserviceTemplate
         /// <returns>Serialized Ecommerce Standards Document in the JSON data format</returns>
         public System.ServiceModel.Channels.Message getPaymentTypes()
         {
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_PAYMENT_TYPES, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_START, "");
+
             //create Ecommerce standards document for storing records
             Dictionary<string, string> esDocumentConfigs = new Dictionary<string, string>();
             ESDocumentPaymentType esDocumentPaymentType = new ESDocumentPaymentType(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_PAYMENT_TYPES, ESDocumentConstants.RESULT_ERROR_UNKNOWN), new ESDRecordPaymentType[] { }, esDocumentConfigs);
@@ -1673,6 +1770,9 @@ namespace ESDWebserviceTemplate
                 esDocumentPaymentType.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING;
             }
 
+            //output message to the console
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_PAYMENT_TYPES, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_END, esDocumentPaymentType.message);
+
             //serializes the ESD document into 
             return serializeESDocument(esDocumentPaymentType);
         }
@@ -1681,6 +1781,8 @@ namespace ESDWebserviceTemplate
         /// <returns>Serialized Ecommerce Standards Document in the JSON data format</returns>
         public System.ServiceModel.Channels.Message getPriceLevelPricing()
         {
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_PRICE_LEVEL_PRICING, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_START, "");
+
             //create Ecommerce standards document for storing records
             Dictionary<string, string> esDocumentConfigs = new Dictionary<string, string>();
             ESDocumentPrice esDocumentPricing = new ESDocumentPrice(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_PRICE_LEVEL_PRICING, ESDocumentConstants.RESULT_ERROR_UNKNOWN), new ESDRecordPrice[] { }, esDocumentConfigs);
@@ -1745,6 +1847,9 @@ namespace ESDWebserviceTemplate
                 esDocumentPricing.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING;
             }
 
+            //output message to the console
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_PRICE_LEVEL_PRICING, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_END, esDocumentPricing.message);
+
             //serializes the ESD document into 
             return serializeESDocument(esDocumentPricing);
         }
@@ -1753,6 +1858,8 @@ namespace ESDWebserviceTemplate
         /// <returns>Serialized Ecommerce Standards Document in the JSON data format</returns>
         public System.ServiceModel.Channels.Message getPriceLevelQuantityPricing()
         {
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_PRICE_LEVEL_QUANTITY_PRICING, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_START, "");
+
             //create Ecommerce standards document for storing records
             Dictionary<string, string> esDocumentConfigs = new Dictionary<string, string>();
             ESDocumentPrice esDocumentPricing = new ESDocumentPrice(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_PRICE_LEVEL_QUANTITY_PRICING, ESDocumentConstants.RESULT_ERROR_UNKNOWN), new ESDRecordPrice[] { }, esDocumentConfigs);
@@ -1822,7 +1929,10 @@ namespace ESDWebserviceTemplate
                 esDocumentPricing.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING;
             }
 
-            //serializes the ESD document into 
+            //output message to the console
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_PRICE_LEVEL_QUANTITY_PRICING, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_END, esDocumentPricing.message);
+
+            //serializes the ESD document
             return serializeESDocument(esDocumentPricing);
         }
 
@@ -1830,9 +1940,11 @@ namespace ESDWebserviceTemplate
         /// <returns>Serialized Ecommerce Standards Document in the JSON data format</returns>
         public System.ServiceModel.Channels.Message getProductAccountPricing()
         {
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNT_PRICING, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_START, "");
+
             //create Ecommerce standards document for storing records
             Dictionary<string, string> esDocumentConfigs = new Dictionary<string, string>();
-            ESDocumentPrice esDocumentPricing = new ESDocumentPrice(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_PRICE_LEVEL_QUANTITY_PRICING, ESDocumentConstants.RESULT_ERROR_UNKNOWN), new ESDRecordPrice[] { }, esDocumentConfigs);
+            ESDocumentPrice esDocumentPricing = new ESDocumentPrice(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNT_PRICING, ESDocumentConstants.RESULT_ERROR_UNKNOWN), new ESDRecordPrice[] { }, esDocumentConfigs);
 
             try
             {
@@ -1910,7 +2022,7 @@ namespace ESDWebserviceTemplate
                     esDocumentPricing.priceGroups = priceGroups;
                     esDocumentPricing.dataRecords = records.ToArray();
                     esDocumentPricing.totalDataRecords = records.Count;
-                    esDocumentPricing.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_PRICE_LEVEL_QUANTITY_PRICING, ESDocumentConstants.RESULT_SUCCESS);
+                    esDocumentPricing.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNT_PRICING, ESDocumentConstants.RESULT_SUCCESS);
                     esDocumentPricing.resultStatus = ESDocumentConstants.RESULT_SUCCESS;
 
                     // add a document config that specifies all of the record properties that may contain data in the document
@@ -1919,15 +2031,18 @@ namespace ESDWebserviceTemplate
                 }
                 else
                 {
-                    esDocumentPricing.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_PRICE_LEVEL_QUANTITY_PRICING, ESDocumentConstants.RESULT_ERROR_CONNECTOR_INVALID_CREDENTIALS);
+                    esDocumentPricing.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNT_PRICING, ESDocumentConstants.RESULT_ERROR_CONNECTOR_INVALID_CREDENTIALS);
                     esDocumentPricing.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_INVALID_CREDENTIALS;
                 }
             }
             catch (Exception ex)
             {
-                esDocumentPricing.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_PRICE_LEVEL_QUANTITY_PRICING, ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING);
+                esDocumentPricing.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNT_PRICING, ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING);
                 esDocumentPricing.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING;
             }
+
+            //output message to the console
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNT_PRICING, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_END, esDocumentPricing.message);
 
             //serializes the ESD document into 
             return serializeESDocument(esDocumentPricing);
@@ -1937,6 +2052,8 @@ namespace ESDWebserviceTemplate
         /// <returns>Serialized Ecommerce Standards Document in the JSON data format</returns>
         public System.ServiceModel.Channels.Message getProductCustomerAccountPrice(string keyCustomerAccountID, string keyProductID, decimal quantity)
         {
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNT_PRICE, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_START, "");
+
             //create Ecommerce standards document for storing records
             Dictionary<string, string> esDocumentConfigs = new Dictionary<string, string>();
             ESDocumentPrice esDocumentPricing = new ESDocumentPrice(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNT_PRICE, ESDocumentConstants.RESULT_ERROR_UNKNOWN), new ESDRecordPrice[] { }, esDocumentConfigs);
@@ -1987,6 +2104,9 @@ namespace ESDWebserviceTemplate
                 esDocumentPricing.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING;
             }
 
+            //output message to the console
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNT_PRICE, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_END, esDocumentPricing.message);
+
             //serializes the ESD document into 
             return serializeESDocument(esDocumentPricing);
         }
@@ -1995,6 +2115,8 @@ namespace ESDWebserviceTemplate
         /// <returns>Serialized Ecommerce Standards Document in the JSON data format</returns>
         public System.ServiceModel.Channels.Message getProducts()
         {
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_PRODUCTS, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_START, "");
+
             //create Ecommerce standards document for storing records
             Dictionary<string, string> esDocumentConfigs = new Dictionary<string, string>();
             ESDocumentProduct esDocumentProducts = new ESDocumentProduct(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_PRODUCTS, ESDocumentConstants.RESULT_ERROR_UNKNOWN), new ESDRecordProduct[] { }, esDocumentConfigs);
@@ -2079,6 +2201,9 @@ namespace ESDWebserviceTemplate
                 esDocumentProducts.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING;
             }
 
+            //output message to the console
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_PRODUCTS, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_END, esDocumentProducts.message);
+
             //serializes the ESD document into 
             return serializeESDocument(esDocumentProducts);
         }
@@ -2087,6 +2212,8 @@ namespace ESDWebserviceTemplate
         /// <returns>Serialized Ecommerce Standards Document in the JSON data format</returns>
         public System.ServiceModel.Channels.Message getPriceLevels()
         {
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_PRICE_LEVELS, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_START, "");
+
             //create Ecommerce standards document for storing records
             Dictionary<string, string> esDocumentConfigs = new Dictionary<string, string>();
             ESDocumentPriceLevel esDocumentPriceLevels = new ESDocumentPriceLevel(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_PRICE_LEVELS, ESDocumentConstants.RESULT_ERROR_UNKNOWN), new ESDRecordPriceLevel[] { }, esDocumentConfigs);
@@ -2136,6 +2263,9 @@ namespace ESDWebserviceTemplate
                 esDocumentPriceLevels.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING;
             }
 
+            //output message to the console
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_PRICE_LEVELS, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_END, esDocumentPriceLevels.message);
+
             //serializes the ESD document into 
             return serializeESDocument(esDocumentPriceLevels);
         }
@@ -2144,6 +2274,8 @@ namespace ESDWebserviceTemplate
         /// <returns>Serialized Ecommerce Standards Document in the JSON data format</returns>
         public System.ServiceModel.Channels.Message getProductCombinations()
         {
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_PRODUCT_COMBINATIONS, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_START, "");
+
             //create Ecommerce standards document for storing records
             Dictionary<string, string> esDocumentConfigs = new Dictionary<string, string>();
             ESDocumentProductCombination esDocumentProductCombinations = new ESDocumentProductCombination(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_PRODUCT_COMBINATIONS, ESDocumentConstants.RESULT_ERROR_UNKNOWN), new ESDRecordProductCombinationParent[] { }, new ESDRecordCombinationProfile[] {}, esDocumentConfigs);
@@ -2229,6 +2361,9 @@ namespace ESDWebserviceTemplate
                 esDocumentProductCombinations.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING;
             }
 
+            //output message to the console
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_PRODUCT_COMBINATIONS, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_END, esDocumentProductCombinations.message);
+
             //serializes the ESD document into 
             return serializeESDocument(esDocumentProductCombinations);
         }
@@ -2237,6 +2372,8 @@ namespace ESDWebserviceTemplate
         /// <returns>Serialized Ecommerce Standards Document in the JSON data format</returns>
         public System.ServiceModel.Channels.Message getProductStockQuantities(string keyProductID, string obtainAll)
         {
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_PRODUCT_STOCK_QUANTITIES, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_START, "");
+
             //create Ecommerce standards document for storing records
             Dictionary<string, string> esDocumentConfigs = new Dictionary<string, string>();
             ESDocumentStockQuantity esDocumentStockQuantities = new ESDocumentStockQuantity(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_PRODUCT_STOCK_QUANTITIES, ESDocumentConstants.RESULT_ERROR_UNKNOWN), new ESDRecordStockQuantity[] { }, esDocumentConfigs);
@@ -2295,6 +2432,9 @@ namespace ESDWebserviceTemplate
                 esDocumentStockQuantities.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING;
             }
 
+            //output message to the console
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_PRODUCT_STOCK_QUANTITIES, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_END, esDocumentStockQuantities.message);
+
             //serializes the ESD document into 
             return serializeESDocument(esDocumentStockQuantities);
         }
@@ -2303,6 +2443,8 @@ namespace ESDWebserviceTemplate
         /// <returns>Serialized Ecommerce Standards Document in the JSON data format</returns>
         public System.ServiceModel.Channels.Message getPurchasers()
         {
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_PURCHASERS, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_START, "");
+
             //create Ecommerce standards document for storing records
             Dictionary<string, string> esDocumentConfigs = new Dictionary<string, string>();
             ESDocumentPurchaser esDocumentAlternateCodes = new ESDocumentPurchaser(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_PURCHASERS, ESDocumentConstants.RESULT_ERROR_UNKNOWN), new ESDRecordPurchaser[] { }, esDocumentConfigs);
@@ -2354,6 +2496,9 @@ namespace ESDWebserviceTemplate
                 esDocumentAlternateCodes.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING;
             }
 
+            //output message to the console
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_PURCHASERS, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_END, esDocumentAlternateCodes.message);
+
             //serializes the ESD document into 
             return serializeESDocument(esDocumentAlternateCodes);
         }
@@ -2362,6 +2507,8 @@ namespace ESDWebserviceTemplate
         /// <returns>Serialized Ecommerce Standards Document in the JSON data format</returns>
         public System.ServiceModel.Channels.Message getSalesReps()
         {
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_SALESREPS, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_START, "");
+
             //create Ecommerce standards document for storing records
             Dictionary<string, string> esDocumentConfigs = new Dictionary<string, string>();
             ESDocumentSalesRep esDocumentSalesreps = new ESDocumentSalesRep(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_SALESREPS, ESDocumentConstants.RESULT_ERROR_UNKNOWN), new ESDRecordSalesRep[] { }, esDocumentConfigs);
@@ -2413,6 +2560,9 @@ namespace ESDWebserviceTemplate
                 esDocumentSalesreps.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING;
             }
 
+            //output message to the console
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_SALESREPS, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_END, esDocumentSalesreps.message);
+
             //serializes the ESD document into 
             return serializeESDocument(esDocumentSalesreps);
         }
@@ -2421,9 +2571,11 @@ namespace ESDWebserviceTemplate
         /// <returns>Serialized Ecommerce Standards Document in the JSON data format</returns>
         public System.ServiceModel.Channels.Message getSellUnits()
         {
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_SELL_UNITS, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_START, "");
+
             //create Ecommerce standards document for storing records
             Dictionary<string, string> esDocumentConfigs = new Dictionary<string, string>();
-            ESDocumentSellUnit esDocumentAlternateCodes = new ESDocumentSellUnit(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_SELL_UNITS, ESDocumentConstants.RESULT_ERROR_UNKNOWN), new ESDRecordSellUnit[] { }, esDocumentConfigs);
+            ESDocumentSellUnit esDocumentSellUnits = new ESDocumentSellUnit(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_SELL_UNITS, ESDocumentConstants.RESULT_ERROR_UNKNOWN), new ESDRecordSellUnit[] { }, esDocumentConfigs);
 
             try
             {
@@ -2491,10 +2643,10 @@ namespace ESDWebserviceTemplate
                     records.Add(record);
 
                     //update the details of the document after all records have sucessfully been obtained
-                    esDocumentAlternateCodes.dataRecords = records.ToArray();
-                    esDocumentAlternateCodes.totalDataRecords = records.Count;
-                    esDocumentAlternateCodes.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_SELL_UNITS, ESDocumentConstants.RESULT_SUCCESS);
-                    esDocumentAlternateCodes.resultStatus = ESDocumentConstants.RESULT_SUCCESS;
+                    esDocumentSellUnits.dataRecords = records.ToArray();
+                    esDocumentSellUnits.totalDataRecords = records.Count;
+                    esDocumentSellUnits.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_SELL_UNITS, ESDocumentConstants.RESULT_SUCCESS);
+                    esDocumentSellUnits.resultStatus = ESDocumentConstants.RESULT_SUCCESS;
 
                     // add a document config that specifies all of the record properties that may contain data in the document
                     // This properties indicate to other systems importing the document on which record data can be inserted or overwritten
@@ -2502,24 +2654,29 @@ namespace ESDWebserviceTemplate
                 }
                 else
                 {
-                    esDocumentAlternateCodes.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_SELL_UNITS, ESDocumentConstants.RESULT_ERROR_CONNECTOR_INVALID_CREDENTIALS);
-                    esDocumentAlternateCodes.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_INVALID_CREDENTIALS;
+                    esDocumentSellUnits.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_SELL_UNITS, ESDocumentConstants.RESULT_ERROR_CONNECTOR_INVALID_CREDENTIALS);
+                    esDocumentSellUnits.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_INVALID_CREDENTIALS;
                 }
             }
             catch (Exception ex)
             {
-                esDocumentAlternateCodes.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_SELL_UNITS, ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING);
-                esDocumentAlternateCodes.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING;
+                esDocumentSellUnits.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_SELL_UNITS, ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING);
+                esDocumentSellUnits.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING;
             }
 
+            //output message to the console
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_SELL_UNITS, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_END, esDocumentSellUnits.message);
+
             //serializes the ESD document into 
-            return serializeESDocument(esDocumentAlternateCodes);
+            return serializeESDocument(esDocumentSellUnits);
         }
 
         /// <summary>Obtains an Ecommerce Standards Document containing an array of supplier account records</summary>
         /// <returns>Serialized Ecommerce Standards Document in the JSON data format</returns>
         public System.ServiceModel.Channels.Message getSupplierAccounts()
         {
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_SUPPLIER_ACCOUNTS, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_START, "");
+
             //create Ecommerce standards document for storing records
             Dictionary<string, string> esDocumentConfigs = new Dictionary<string, string>();
             ESDocumentSupplierAccount esDocumentSupplierAccounts = new ESDocumentSupplierAccount(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_SUPPLIER_ACCOUNTS, ESDocumentConstants.RESULT_ERROR_UNKNOWN), new ESDRecordSupplierAccount[] { }, esDocumentConfigs);
@@ -2581,6 +2738,9 @@ namespace ESDWebserviceTemplate
                 esDocumentSupplierAccounts.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING;
             }
 
+            //output message to the console
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_SUPPLIER_ACCOUNTS, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_END, esDocumentSupplierAccounts.message);
+
             //serializes the ESD document into 
             return serializeESDocument(esDocumentSupplierAccounts);
         }
@@ -2589,6 +2749,8 @@ namespace ESDWebserviceTemplate
         /// <returns>Serialized Ecommerce Standards Document in the JSON data format</returns>
         public System.ServiceModel.Channels.Message getSupplierAccountAddresses()
         {
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_SUPPLIER_ACCOUNT_ADDRESSES, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_START, "");
+
             //create Ecommerce standards document for storing records
             Dictionary<string, string> esDocumentConfigs = new Dictionary<string, string>();
             ESDocumentSupplierAccountAddress esDocumentSupplierAccountAddresses = new ESDocumentSupplierAccountAddress(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_SUPPLIER_ACCOUNT_ADDRESSES, ESDocumentConstants.RESULT_ERROR_UNKNOWN), new ESDRecordSupplierAccountAddress[] { }, esDocumentConfigs);
@@ -2644,6 +2806,9 @@ namespace ESDWebserviceTemplate
                 esDocumentSupplierAccountAddresses.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING;
             }
 
+            //output message to the console
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_SUPPLIER_ACCOUNT_ADDRESSES, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_END, esDocumentSupplierAccountAddresses.message);
+
             //serializes the ESD document into 
             return serializeESDocument(esDocumentSupplierAccountAddresses);
         }
@@ -2652,6 +2817,8 @@ namespace ESDWebserviceTemplate
         /// <returns>Serialized Ecommerce Standards Document in the JSON data format</returns>
         public System.ServiceModel.Channels.Message getSurcharges()
         {
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_SURCHARGES, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_START, "");
+
             //create Ecommerce standards document for storing records
             Dictionary<string, string> esDocumentConfigs = new Dictionary<string, string>();
             ESDocumentSurcharge esDocumentSurcharge = new ESDocumentSurcharge(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_SURCHARGES, ESDocumentConstants.RESULT_ERROR_UNKNOWN), new ESDRecordSurcharge[] { }, esDocumentConfigs);
@@ -2712,6 +2879,9 @@ namespace ESDWebserviceTemplate
                 esDocumentSurcharge.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING;
             }
 
+            //output message to the console
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_SURCHARGES, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_END, esDocumentSurcharge.message);
+
             //serializes the ESD document into 
             return serializeESDocument(esDocumentSurcharge);
         }
@@ -2720,6 +2890,8 @@ namespace ESDWebserviceTemplate
         /// <returns>Serialized Ecommerce Standards Document in the JSON data format</returns>
         public System.ServiceModel.Channels.Message getTaxcodes()
         {
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_TAXCODDES, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_START, "");
+
             //create Ecommerce standards document for storing records
             Dictionary<string, string> esDocumentConfigs = new Dictionary<string, string>();
             ESDocumentTaxcode esDocumentTaxcode = new ESDocumentTaxcode(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_TAXCODDES, ESDocumentConstants.RESULT_ERROR_UNKNOWN), new ESDRecordTaxcode[] { }, esDocumentConfigs);
@@ -2776,6 +2948,9 @@ namespace ESDWebserviceTemplate
                 esDocumentTaxcode.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING;
             }
 
+            //output message to the console
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_TAXCODDES, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_END, esDocumentTaxcode.message);
+
             //serializes the ESD document into 
             return serializeESDocument(esDocumentTaxcode);
         }
@@ -2784,6 +2959,8 @@ namespace ESDWebserviceTemplate
         /// <returns>Serialized Ecommerce Standards Document in the JSON data format</returns>
         public System.ServiceModel.Channels.Message getWebserviceStatus()
         {
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_WEB_SERVICE_STATUS, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_START, "");
+
             //create Ecommerce standards document for storing records
             ESDocument esDocument = new ESDocument(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_WEB_SERVICE_STATUS, ESDocumentConstants.RESULT_ERROR_UNKNOWN));
 
@@ -2807,6 +2984,9 @@ namespace ESDWebserviceTemplate
                 esDocument.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING;
             }
 
+            //output message to the console
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_WEB_SERVICE_STATUS, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_END, esDocument.message);
+
             //serializes the ESD document into 
             return serializeESDocument(esDocument);
         }
@@ -2816,6 +2996,8 @@ namespace ESDWebserviceTemplate
         /// <returns>Serialized Ecommerce Standards Document in the JSON data format</returns>
         public System.ServiceModel.Channels.Message importSalesOrders()
         {
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_ORDER_SALES, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_POST_START, "");
+
             //create Ecommerce standards document for storing records
             ESDocument esDocument = new ESDocument(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_ORDER_SALES, ESDocumentConstants.RESULT_ERROR_UNKNOWN));
 
@@ -2828,8 +3010,11 @@ namespace ESDWebserviceTemplate
                     ESDocumentOrderSale esDocumentSalesOrder = (ESDocumentOrderSale)new DataContractJsonSerializer(typeof(ESDocumentOrderSale)).ReadObject(OperationContext.Current.RequestContext.RequestMessage.GetReaderAtBodyContents());
 
                     //iterate through each sales order within the Ecommerce Standards document
-                    for (int j = 0; j < esDocumentSalesOrder.dataRecords.Length; j++)
+                    foreach (ESDRecordOrderSale orderSaleRecord in esDocumentSalesOrder.dataRecords)
                     {
+                        //remove any null values from the order's properties if the deserializer could not set any values
+                        orderSaleRecord.setDefaultValuesForNullMembers();
+
                         //do processing for each sales order, such as importing it into a database or other data source
                     }
 
@@ -2849,6 +3034,9 @@ namespace ESDWebserviceTemplate
                 esDocument.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING;
             }
 
+            //output message to the console
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_ORDER_SALES, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_POST_END, esDocument.message);
+
             //serializes the ESD document into 
             return serializeESDocument(esDocument);
         }
@@ -2857,6 +3045,8 @@ namespace ESDWebserviceTemplate
         /// <returns>Serialized Ecommerce Standards Document in the JSON data format</returns>
         public System.ServiceModel.Channels.Message importPurchaseOrders()
         {
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_ORDER_PURCHASES, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_POST_START, "");
+
             //create Ecommerce standards document for storing records
             ESDocument esDocument = new ESDocument(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_ORDER_PURCHASES, ESDocumentConstants.RESULT_ERROR_UNKNOWN));
 
@@ -2869,8 +3059,11 @@ namespace ESDWebserviceTemplate
                     ESDocumentOrderPurchase esDocumentPurchaseOrder = (ESDocumentOrderPurchase)new DataContractJsonSerializer(typeof(ESDocumentOrderPurchase)).ReadObject(OperationContext.Current.RequestContext.RequestMessage.GetReaderAtBodyContents());
 
                     //iterate through each purchase order within the Ecommerce Standards document
-                    for (int j = 0; j < esDocumentPurchaseOrder.dataRecords.Length; j++)
+                    foreach (ESDRecordOrderPurchase orderPurchaseRecord in esDocumentPurchaseOrder.dataRecords)
                     {
+                        //remove any null values from the order's properties if the deserializer could not set any values
+                        orderPurchaseRecord.setDefaultValuesForNullMembers();
+
                         //do processing for each purchase order, such as importing it into a database or other data source
                         //other steps may be to create a supplier account if one has not been found
                     }
@@ -2891,6 +3084,9 @@ namespace ESDWebserviceTemplate
                 esDocument.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING;
             }
 
+            //output message to the console
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_ORDER_PURCHASES, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_POST_END, esDocument.message);
+
             //serializes the ESD document into 
             return serializeESDocument(esDocument);
         }
@@ -2899,6 +3095,8 @@ namespace ESDWebserviceTemplate
         /// <returns>Serialized Ecommerce Standards Document in the JSON data format</returns>
         public System.ServiceModel.Channels.Message importCustomerAccounts()
         {
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNTS, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_POST_START, "");
+
             //create Ecommerce standards document for storing records
             ESDocument esDocument = new ESDocument(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNTS, ESDocumentConstants.RESULT_ERROR_UNKNOWN));
 
@@ -2911,7 +3109,7 @@ namespace ESDWebserviceTemplate
                     ESDocumentCustomerAccount esDocumentCustomerAccount = (ESDocumentCustomerAccount)new DataContractJsonSerializer(typeof(ESDocumentCustomerAccount)).ReadObject(OperationContext.Current.RequestContext.RequestMessage.GetReaderAtBodyContents());
 
                     //iterate through each customer account within the Ecommerce Standards document
-                    for (int j = 0; j < esDocumentCustomerAccount.dataRecords.Length; j++)
+                    foreach (ESDRecordCustomerAccount customerAccountRecord in esDocumentCustomerAccount.dataRecords)
                     {
                         //do processing for each customer account, such as importing it into a database or other data source
                     }
@@ -2932,6 +3130,9 @@ namespace ESDWebserviceTemplate
                 esDocument.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING;
             }
 
+            //output message to the console
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNTS, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_POST_END, esDocument.message);
+
             //serializes the ESD document into 
             return serializeESDocument(esDocument);
         }
@@ -2940,6 +3141,8 @@ namespace ESDWebserviceTemplate
         /// <returns>Serialized Ecommerce Standards Document in the JSON data format</returns>
         public System.ServiceModel.Channels.Message importCustomerAccountPayment()
         {
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNT_PAYMENTS, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_POST_START, "");
+
             //create Ecommerce standards document for storing records
             ESDocument esDocument = new ESDocument(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNT_PAYMENTS, ESDocumentConstants.RESULT_ERROR_UNKNOWN));
 
@@ -2952,8 +3155,11 @@ namespace ESDWebserviceTemplate
                     ESDocumentCustomerAccountPayment esDocumentCustomerAccountPayment = (ESDocumentCustomerAccountPayment)new DataContractJsonSerializer(typeof(ESDocumentCustomerAccountPayment)).ReadObject(OperationContext.Current.RequestContext.RequestMessage.GetReaderAtBodyContents());
 
                     //iterate through each customer account payment within the Ecommerce Standards document
-                    for (int j = 0; j < esDocumentCustomerAccountPayment.dataRecords.Length; j++)
+                    foreach (ESDRecordCustomerAccountPayment customerAccountPaymentRecord in esDocumentCustomerAccountPayment.dataRecords)
                     {
+                        //remove any null values from the payment record's properties if the deserializer could not set any values
+                        customerAccountPaymentRecord.setDefaultValuesForNullMembers();
+
                         //do processing for each customer account payment, such as importing it into a database or other data source
                     }
 
@@ -2972,6 +3178,9 @@ namespace ESDWebserviceTemplate
                 esDocument.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNT_PAYMENTS, ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING);
                 esDocument.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING;
             }
+
+            //output message to the console
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNT_PAYMENTS, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_POST_END, esDocument.message);
 
             //serializes the ESD document into 
             return serializeESDocument(esDocument);
