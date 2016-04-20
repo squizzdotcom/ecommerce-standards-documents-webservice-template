@@ -36,7 +36,6 @@ After the webservice console application has started, you can open a web browser
 * http://localhost:8081/esd/data/sell_units
 * http://localhost:8081/esd/data/supplier_accounts
 * http://localhost:8081/esd/data/supplier_account_addresses
-* http://localhost:8081/esd/data/sales_reps
 * http://localhost:8081/esd/data/surcharges
 * http://localhost:8081/esd/data/taxcodes
 * http://localhost:8081/esd/data/webservice_status
