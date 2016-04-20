@@ -1,4 +1,4 @@
-# Ecommerce Standards Documents DotNet Webservice Template
+# Ecommerce Standards Documents .Net Webservice Template
 This repository contains an out-of-the-box programming example on how to develop a RESTful webservice that returns or processes [Ecommerce Standards Documents](https://github.com/squizzdotcom/ecommerce-standards-documents-dotnet-library) (ESD) built on the DotNet platform. 
 This template webservice provides an example on how to integrate an ESD webservice into any business system built using the DotNet platform. This allows software providers of business systems to more quickly integrate their system's into other ESD supported systems and Ecommerce based platforms.
 The webservice is build using the Windows Communication Foundation (WCF) libraries that natively exist within the DotNet platform. This means less work is required to create the webservice since the DotNet platform takes care of the low level programming required.
