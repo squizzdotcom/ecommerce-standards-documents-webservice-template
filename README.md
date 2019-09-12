@@ -24,6 +24,9 @@ After the webservice console application has started, you can open a web browser
 * http://localhost:8081/esd/data/kits
 * http://localhost:8081/esd/data/labour
 * http://localhost:8081/esd/data/locations
+* http://localhost:8081/esd/data/makers
+* http://localhost:8081/esd/data/maker_models
+* http://localhost:8081/esd/data/maker_model_mappings
 * http://localhost:8081/esd/data/payment_types
 * http://localhost:8081/esd/data/price_level_pricing
 * http://localhost:8081/esd/data/price_level_quantity_pricing

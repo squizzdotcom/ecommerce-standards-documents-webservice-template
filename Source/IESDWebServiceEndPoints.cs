@@ -72,6 +72,15 @@ namespace ESDWebserviceTemplate
         [WebGet(UriTemplate = "data/locations", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Json)]
         System.ServiceModel.Channels.Message getLocations();
 
+        [WebGet(UriTemplate = "data/makers", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Json)]
+        System.ServiceModel.Channels.Message getMakers();
+
+        [WebGet(UriTemplate = "data/maker_models", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Json)]
+        System.ServiceModel.Channels.Message getMakerModels();
+
+        [WebGet(UriTemplate = "data/maker_model_mappings", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Json)]
+        System.ServiceModel.Channels.Message getMakerModelMappings();
+
         [WebGet(UriTemplate = "data/payment_types", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Json)]
         System.ServiceModel.Channels.Message getPaymentTypes();
 

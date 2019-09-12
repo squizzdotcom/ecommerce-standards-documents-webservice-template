@@ -2009,6 +2009,294 @@ namespace ESDWebserviceTemplate
             return serializeESDocument(esDocumentLocations);
         }
 
+        /// <summary>Obtains an Ecommerce Standards Document containing an array of maker (a.k.a manufacturer) records</summary>
+        /// <returns>Serialized Ecommerce Standards Document in the JSON data format</returns>
+        public System.ServiceModel.Channels.Message getMakers()
+        {
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_MAKERS, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_START, "");
+
+            //create Ecommerce standards document for storing records
+            Dictionary<string, string> esDocumentConfigs = new Dictionary<string, string>();
+            ESDocumentMaker esDocumentMakers = new ESDocumentMaker(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_MAKERS, ESDocumentConstants.RESULT_ERROR_UNKNOWN), new ESDRecordMaker[] { }, esDocumentConfigs);
+
+            try
+            {
+                //check that data is allowed to be returned from the web service based on the incomming HTTP request headers
+                if (checkRequestCredentials())
+                {
+                    //obtain record data
+                    //This is where you would call a database or other data source to obtain and place data into the standards record objects
+                    List<ESDRecordMaker> records = new List<ESDRecordMaker>();
+
+                    //add record data to the document
+                    ESDRecordMaker record = new ESDRecordMaker();
+                    record.keyMakerID = "2";
+                    record.makerCode = "CAR1";
+                    record.name = "Car Manufacturer A";
+                    record.makerSearchCode = "Car-Manufacturer-A";
+                    record.groupClass = "POPULAR CARS";
+                    record.ordering = 2;
+                    record.establishedDate = 1449132083084; //date Thu Dec 03 2015 08:41:23 UTC
+                    record.orgName = "Car Manufacturer A";
+                    record.authorityNumbers = new string[] {"123456789 1234"};
+                    record.authorityNumberLabels = new string[] {"Australian Business Number"};
+                    record.authorityNumberTypes = new int[] {ESDocumentConstants.AUTHORITY_NUM_AUS_ABN};
+                    records.Add(record);
+
+                    record = new ESDRecordMaker();
+                    record.keyMakerID = "3";
+                    record.makerCode = "CAR3";
+                    record.name = "Car Manufacturer B";
+                    record.makerSearchCode = "Car-Manufacturer-B-Sedans-Wagons";
+                    record.groupClass = "CUSTOM CARS";
+                    record.ordering = 1;
+                    record.establishedDate = -1445464800000; //date Thu Mar 13 1924 02:00:00 UTC
+                    record.orgName = "Car Manufacturer B";
+                    record.authorityNumbers = new string[] {"98877664322"};
+                    record.authorityNumberLabels = new string[] {"New Zealand Business Number"};
+                    record.authorityNumberTypes = new int[] {ESDocumentConstants.AUTHORITY_NUM_NZL_NZBN};
+                    records.Add(record);
+
+                    //update the details of the document after all records have sucessfully been obtained
+                    esDocumentMakers.dataRecords = records.ToArray();
+                    esDocumentMakers.totalDataRecords = records.Count;
+                    esDocumentMakers.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_MAKERS, ESDocumentConstants.RESULT_SUCCESS);
+                    esDocumentMakers.resultStatus = ESDocumentConstants.RESULT_SUCCESS;
+
+                    // add a document config that specifies all of the record properties that may contain data in the document
+                    // This properties indicate to other systems importing the document on which record data can be inserted or overwritten
+                    esDocumentConfigs.Add("dataFields", "keyMakerID,makerCode,name,makerSearchCode,groupClass,ordering,establishedDate,orgName,authorityNumbers,authorityNumberLabels,authorityNumberTypes");
+
+                }
+                else
+                {
+                    esDocumentMakers.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_MAKERS, ESDocumentConstants.RESULT_ERROR_CONNECTOR_INVALID_CREDENTIALS);
+                    esDocumentMakers.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_INVALID_CREDENTIALS;
+                }
+            }
+            catch (Exception ex)
+            {
+                esDocumentMakers.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_MAKERS, ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING);
+                esDocumentMakers.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING;
+            }
+
+            //output message to the console
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_MAKERS, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_END, esDocumentMakers.message);
+
+            //serializes the ESD document
+            return serializeESDocument(esDocumentMakers);
+        }
+
+        /// <summary>Obtains an Ecommerce Standards Document containing an array of maker model records</summary>
+        /// <returns>Serialized Ecommerce Standards Document in the JSON data format</returns>
+        public System.ServiceModel.Channels.Message getMakerModels()
+        {
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_MAKER_MODELS, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_START, "");
+
+            //create Ecommerce standards document for storing records
+            Dictionary<string, string> esDocumentConfigs = new Dictionary<string, string>();
+            ESDocumentMakerModel esDocumentMakerModels = new ESDocumentMakerModel(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_MAKER_MODELS, ESDocumentConstants.RESULT_ERROR_UNKNOWN), new ESDRecordMakerModel[] { }, esDocumentConfigs);
+
+            try
+            {
+                //check that data is allowed to be returned from the web service based on the incomming HTTP request headers
+                if (checkRequestCredentials())
+                {
+                    //obtain record data
+                    //This is where you would call a database or other data source to obtain and place data into the standards record objects
+                    List<ESDRecordMakerModel> records = new List<ESDRecordMakerModel>();
+
+                    //add record data to the document
+                    ESDRecordMakerModel record = new ESDRecordMakerModel();
+                    record.keyMakerModelID = "2";
+                    record.keyMakerID = "2";
+                    record.modelCode = "SEDAN1";
+                    record.modelSubCode = "1ABC";
+                    record.name = "Sahara Luxury Sedan 2016";
+                    record.modelSearchCode = "Car-Manufacturer-A-Saraha-Luxury-Sedan-2016";
+                    record.groupClass = "SEDAN";
+                    record.releasedDate = 1449132083084; //date Mon Feb 29 2016 13:00:00 UTC
+                    record.createdDate = 1430748000000; //date Mon May 04 2015 14:00:00 UTC
+                    record.attributes = new List<ESDRecordAttributeValue>()
+                    {
+                        new ESDRecordAttributeValue()
+                        {
+                            keyAttributeProfileID = "MAKEMODELCAR",
+                            keyAttributeID = "MMCAR-TYPE",
+                            stringValue = "Sedan"
+                        },
+                        new ESDRecordAttributeValue()
+                        {
+                            keyAttributeProfileID = "MAKEMODELCAR",
+                            keyAttributeID = "MMCAR-ENGINE-CYLINDERS",
+                            numberValue = 4
+                        },
+                        new ESDRecordAttributeValue()
+                        {
+                            keyAttributeProfileID = "MAKEMODELCAR",
+                            keyAttributeID = "MMCAR-FUEL-TANK-LITRES",
+                            numberValue = (decimal)80.5
+                        }
+                    };
+                    records.Add(record);
+
+                    record = new ESDRecordMakerModel();
+                    record.keyMakerModelID = "3";
+                    record.keyMakerID = "2";
+                    record.modelCode = "TRUCK22";
+                    record.modelSubCode = "EX";
+                    record.name = "City Truck 2016";
+                    record.modelSearchCode = "Car-Manufacturer-A-City-Truck-2016";
+                    record.groupClass = "TRUCK";
+                    record.releasedDate = 143074800000; //date Sun Jul 14 1974 23:00:00 UTC
+                    record.createdDate = 131512200000; //date Sun Mar 03 1974 03:10:00 UTC
+                    record.attributes = new List<ESDRecordAttributeValue>()
+                    {
+                        new ESDRecordAttributeValue()
+                        {
+                            keyAttributeProfileID = "MAKEMODELCAR",
+                            keyAttributeID = "MMCAR-TYPE",
+                            stringValue = "Truck"
+                        },
+                        new ESDRecordAttributeValue()
+                        {
+                            keyAttributeProfileID = "MAKEMODELCAR",
+                            keyAttributeID = "MMCAR-ENGINE-CYLINDERS",
+                            numberValue = 6
+                        },
+                        new ESDRecordAttributeValue()
+                        {
+                            keyAttributeProfileID = "MAKEMODELCAR",
+                            keyAttributeID = "MMCAR-FUEL-TANK-LITRES",
+                            numberValue = (decimal)140
+                        }
+                    };
+                    records.Add(record);
+
+                    //update the details of the document after all records have sucessfully been obtained
+                    esDocumentMakerModels.dataRecords = records.ToArray();
+                    esDocumentMakerModels.totalDataRecords = records.Count;
+                    esDocumentMakerModels.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_MAKER_MODELS, ESDocumentConstants.RESULT_SUCCESS);
+                    esDocumentMakerModels.resultStatus = ESDocumentConstants.RESULT_SUCCESS;
+
+                    // add a document config that specifies all of the record properties that may contain data in the document
+                    // This properties indicate to other systems importing the document on which record data can be inserted or overwritten
+                    esDocumentConfigs.Add("dataFields", "keyMakerModelID,keyMakerID,modelCode,modelSubCode,name,modelSearchCode,groupClass,releasedDate,createdDate,attributes");
+
+                }
+                else
+                {
+                    esDocumentMakerModels.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_MAKER_MODELS, ESDocumentConstants.RESULT_ERROR_CONNECTOR_INVALID_CREDENTIALS);
+                    esDocumentMakerModels.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_INVALID_CREDENTIALS;
+                }
+            }
+            catch (Exception ex)
+            {
+                esDocumentMakerModels.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_MAKER_MODELS, ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING);
+                esDocumentMakerModels.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING;
+            }
+
+            //output message to the console
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_MAKER_MODELS, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_END, esDocumentMakerModels.message);
+
+            //serializes the ESD document
+            return serializeESDocument(esDocumentMakerModels);
+        }
+
+        /// <summary>Obtains an Ecommerce Standards Document containing an array of maker model mapping records</summary>
+        /// <returns>Serialized Ecommerce Standards Document in the JSON data format</returns>
+        public System.ServiceModel.Channels.Message getMakerModelMappings()
+        {
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_MAKER_MODEL_MAPPINGS, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_START, "");
+
+            //create Ecommerce standards document for storing records
+            Dictionary<string, string> esDocumentConfigs = new Dictionary<string, string>();
+            ESDocumentMakerModelMapping esDocumentMakerModelMappings = new ESDocumentMakerModelMapping(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_MAKER_MODEL_MAPPINGS, ESDocumentConstants.RESULT_ERROR_UNKNOWN), new ESDRecordMakerModelMapping[] { }, esDocumentConfigs);
+
+            try
+            {
+                //check that data is allowed to be returned from the web service based on the incomming HTTP request headers
+                if (checkRequestCredentials())
+                {
+                    //obtain record data
+                    //This is where you would call a database or other data source to obtain and place data into the standards record objects
+                    List<ESDRecordMakerModelMapping> records = new List<ESDRecordMakerModelMapping>();
+
+                    //add record data to the document
+                    ESDRecordMakerModelMapping record = new ESDRecordMakerModelMapping();
+                    record.keyMakerModelID = "2";
+                    record.keyCategoryID = "CAR-TYRE";
+                    record.keyProductID = "CAR-TYRE-LONG-LASTING";
+                    record.quantity = 4;
+                    record.attributes = new List<ESDRecordAttributeValue>()
+                    {
+                        new ESDRecordAttributeValue()
+                        {
+                            keyAttributeProfileID = "MAKEMODELCAR",
+                            keyAttributeID = "MMCAR-WHEELSIZE-RADIUS-INCH",
+                            numberValue = 21
+                        },
+                        new ESDRecordAttributeValue()
+                        {
+                            keyAttributeProfileID = "MAKEMODELCAR",
+                            keyAttributeID = "MMCAR-WHEELSIZE-TREAD",
+                            stringValue = "All Weather"
+                        }
+                    };
+                    records.Add(record);
+
+                    record = new ESDRecordMakerModelMapping();
+                    record.keyMakerModelID = "2";
+                    record.keyCategoryID = "CAR-TYRE";
+                    record.keyProductID = "CAR-TYRE-CHEAP";
+                    record.quantity = 4;
+                    record.attributes = new List<ESDRecordAttributeValue>()
+                    {
+                        new ESDRecordAttributeValue()
+                        {
+                            keyAttributeProfileID = "MAKEMODELCAR",
+                            keyAttributeID = "MMCAR-WHEELSIZE-RADIUS-INCH",
+                            numberValue = 20
+                        },
+                        new ESDRecordAttributeValue()
+                        {
+                            keyAttributeProfileID = "MAKEMODELCAR",
+                            keyAttributeID = "MMCAR-WHEELSIZE-TREAD",
+                            stringValue = "BITUMEN"
+                        }
+                    };
+                    records.Add(record);
+
+                    //update the details of the document after all records have sucessfully been obtained
+                    esDocumentMakerModelMappings.dataRecords = records.ToArray();
+                    esDocumentMakerModelMappings.totalDataRecords = records.Count;
+                    esDocumentMakerModelMappings.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_MAKER_MODEL_MAPPINGS, ESDocumentConstants.RESULT_SUCCESS);
+                    esDocumentMakerModelMappings.resultStatus = ESDocumentConstants.RESULT_SUCCESS;
+
+                    // add a document config that specifies all of the record properties that may contain data in the document
+                    // This properties indicate to other systems importing the document on which record data can be inserted or overwritten
+                    esDocumentConfigs.Add("dataFields", "keyMakerModelID,keyCategoryID,keyProductID,attributes");
+
+                }
+                else
+                {
+                    esDocumentMakerModelMappings.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_MAKER_MODEL_MAPPINGS, ESDocumentConstants.RESULT_ERROR_CONNECTOR_INVALID_CREDENTIALS);
+                    esDocumentMakerModelMappings.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_INVALID_CREDENTIALS;
+                }
+            }
+            catch (Exception ex)
+            {
+                esDocumentMakerModelMappings.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_MAKER_MODEL_MAPPINGS, ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING);
+                esDocumentMakerModelMappings.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING;
+            }
+
+            //output message to the console
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_MAKER_MODEL_MAPPINGS, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_END, esDocumentMakerModelMappings.message);
+
+            //serializes the ESD document
+            return serializeESDocument(esDocumentMakerModelMappings);
+        }
+
         /// <summary>Obtains an Ecommerce Standards Document containing an array of payment type records</summary>
         /// <returns>Serialized Ecommerce Standards Document in the JSON data format</returns>
         public System.ServiceModel.Channels.Message getPaymentTypes()
