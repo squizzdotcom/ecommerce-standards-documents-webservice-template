@@ -17,6 +17,7 @@ After the webservice console application has started, you can open a web browser
 * http://localhost:8081/esd/data/customer_account_contracts
 * http://localhost:8081/esd/data/downloads
 * http://localhost:8081/esd/data/flags
+* http://localhost:8081/esd/data/general_ledger_accounts
 * http://localhost:8081/esd/data/images
 * http://localhost:8081/esd/data/item_groups
 * http://localhost:8081/esd/data/item_relations
@@ -43,12 +44,15 @@ After the webservice console application has started, you can open a web browser
 * http://localhost:8081/esd/data/customer_account_enquiry_records?keyCustomerAccountID=1&recordType=INVOICE&beginDate=0&endDate=0&pageNumber=0&numberOfRecords=0&orderByField=&orderByDirection=&outstandingRecords=false&searchString=&keyRecordIDs=&searchType=
 * http://localhost:8081/esd/data/customer_account_enquiry_line_report?keyCustomerAccountID=1&recordType=INVOICE&reportID=invoice_lines&orderByField=&orderByDirection=&pageNumber=0&numberOfRecords=0
 * http://localhost:8081/esd/data/customer_account_status?keyCustomerAccountID=1&checkOnHold=Y&checkBalance=Y&checkTerms=Y
+* http://localhost:8081/esd/data/supplier_account_enquiry_record?keySupplierAccountID=1&recordType=ORDER_PURCHASE&keyRecordID=34644
+* http://localhost:8081/esd/data/supplier_account_enquiry_records?keySupplierAccountID=1&recordType=ORDER_PURCHASE&beginDate=0&endDate=0&pageNumber=0&numberOfRecords=0&orderByField=&orderByDirection=&outstandingRecords=false&searchString=&keyRecordIDs=&searchType=
 * http://localhost:8081/esd/data/price_customer_account_price?keyCustomerAccountID=ACC-123&keyProductID=PROD-123&quantity=10
 
 ## Posting Data
 The following URLs can be called using a HTTP POST request with the body of the request being given an Ecommerce Standards Document in the JSON data form based on the supported document type. Read the ESD library's [documentation](https://www.squizz.com/esd/index.html) to determine this.
 * http://localhost:8081/esd/data/sales_orders
 * http://localhost:8081/esd/data/purchase_orders
+* http://localhost:8081/esd/data/supplier_invoices
 * http://localhost:8081/esd/data/customer_accounts
 * http://localhost:8081/esd/data/customer_account_payments
 

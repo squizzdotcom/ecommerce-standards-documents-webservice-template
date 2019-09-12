@@ -47,14 +47,19 @@ namespace ESDWebserviceTemplate
         public static readonly int ESD_ENDPOINT_ID_CUSTOMER_ACCOUNT_ENQUIRY_RECORD = 10;
         public static readonly int ESD_ENDPOINT_ID_CUSTOMER_ACCOUNT_ENQUIRY_LINE_REPORT = 11;
         public static readonly int ESD_ENDPOINT_ID_CUSTOMER_ACCOUNT_STATUS = 12;
+        public static readonly int ESD_ENDPOINT_ID_DELIVERY_NOTICES = 40;
         public static readonly int ESD_ENDPOINT_ID_DOWNLOADS = 13;
         public static readonly int ESD_ENDPOINT_ID_FLAGS = 14;
+        public static readonly int ESD_ENDPOINT_ID_GENERAL_LEDGER_ACCOUNTS = 41;
         public static readonly int ESD_ENDPOINT_ID_IMAGES = 15;
         public static readonly int ESD_ENDPOINT_ID_ITEM_GROUPS = 16;
         public static readonly int ESD_ENDPOINT_ID_ITEM_RELATIONS = 17;
         public static readonly int ESD_ENDPOINT_ID_KITS = 18;
         public static readonly int ESD_ENDPOINT_ID_LABOUR = 19;
         public static readonly int ESD_ENDPOINT_ID_LOCATIONS = 20;
+        public static readonly int ESD_ENDPOINT_ID_MAKERS = 42;
+        public static readonly int ESD_ENDPOINT_ID_MAKER_MODELS = 43;
+        public static readonly int ESD_ENDPOINT_ID_MAKER_MODEL_MAPPINGS = 44;
         public static readonly int ESD_ENDPOINT_ID_PAYMENT_TYPES = 21;
         public static readonly int ESD_ENDPOINT_ID_PRICE_LEVEL_PRICING = 22;
         public static readonly int ESD_ENDPOINT_ID_PRICE_LEVEL_QUANTITY_PRICING = 23;
@@ -69,6 +74,9 @@ namespace ESDWebserviceTemplate
         public static readonly int ESD_ENDPOINT_ID_SELL_UNITS = 32;
         public static readonly int ESD_ENDPOINT_ID_SUPPLIER_ACCOUNTS = 33;
         public static readonly int ESD_ENDPOINT_ID_SUPPLIER_ACCOUNT_ADDRESSES = 34;
+        public static readonly int ESD_ENDPOINT_ID_SUPPLIER_ACCOUNT_ENQUIRY = 45;
+        public static readonly int ESD_ENDPOINT_ID_SUPPLIER_ACCOUNT_ENQUIRY_RECORD = 46;
+        public static readonly int ESD_ENDPOINT_ID_SUPPLIER_INVOICES = 47;
         public static readonly int ESD_ENDPOINT_ID_SURCHARGES = 35;
         public static readonly int ESD_ENDPOINT_ID_TAXCODDES = 36;
         public static readonly int ESD_ENDPOINT_ID_WEB_SERVICE_STATUS = 37;
@@ -91,14 +99,19 @@ namespace ESDWebserviceTemplate
             { ESD_ENDPOINT_ID_CUSTOMER_ACCOUNT_ENQUIRY_RECORD, "Customer Account Enquiry Record"},
             { ESD_ENDPOINT_ID_CUSTOMER_ACCOUNT_ENQUIRY_LINE_REPORT, "Customer Account Enquiry Line Report"},
             { ESD_ENDPOINT_ID_CUSTOMER_ACCOUNT_STATUS, "Customer Account Status"},
+            { ESD_ENDPOINT_ID_DELIVERY_NOTICES, "Delivery Notices"},
             { ESD_ENDPOINT_ID_DOWNLOADS, "Downloads"},
             { ESD_ENDPOINT_ID_FLAGS, "Flags"},
+            { ESD_ENDPOINT_ID_GENERAL_LEDGER_ACCOUNTS, "General Ledger Accounts"},
             { ESD_ENDPOINT_ID_IMAGES, "Images"},
             { ESD_ENDPOINT_ID_ITEM_GROUPS, "Item Groups"},
             { ESD_ENDPOINT_ID_ITEM_RELATIONS, "Item Relations"},
             { ESD_ENDPOINT_ID_KITS, "Kits"},
             { ESD_ENDPOINT_ID_LABOUR, "Labour"},
             { ESD_ENDPOINT_ID_LOCATIONS, "Locations"},
+            { ESD_ENDPOINT_ID_MAKERS, "Makers"},
+            { ESD_ENDPOINT_ID_MAKER_MODELS, "Maker Models"},
+            { ESD_ENDPOINT_ID_MAKER_MODEL_MAPPINGS, "Maker Model Mappings"},
             { ESD_ENDPOINT_ID_PAYMENT_TYPES, "Payment Types"},
             { ESD_ENDPOINT_ID_PRICE_LEVEL_PRICING, "Price Level Pricing"},
             { ESD_ENDPOINT_ID_PRICE_LEVEL_QUANTITY_PRICING, "Price Level Quantity Pricing"},
@@ -113,6 +126,9 @@ namespace ESDWebserviceTemplate
             { ESD_ENDPOINT_ID_SELL_UNITS, "Sell Units"},
             { ESD_ENDPOINT_ID_SUPPLIER_ACCOUNTS, "Supplier Accounts"},
             { ESD_ENDPOINT_ID_SUPPLIER_ACCOUNT_ADDRESSES, "Supplier Account Addresses"},
+            { ESD_ENDPOINT_ID_SUPPLIER_INVOICES, "Supplier Invoices"},
+            { ESD_ENDPOINT_ID_SUPPLIER_ACCOUNT_ENQUIRY, "Supplier Account Enquiry Records"},
+            { ESD_ENDPOINT_ID_SUPPLIER_ACCOUNT_ENQUIRY_RECORD, "Supplier Account Enquiry Record"},
             { ESD_ENDPOINT_ID_SURCHARGES, "Surcharges"},
             { ESD_ENDPOINT_ID_TAXCODDES, "Taxcodes"},
             { ESD_ENDPOINT_ID_WEB_SERVICE_STATUS, "Web Service Status"},

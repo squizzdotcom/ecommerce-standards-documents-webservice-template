@@ -51,6 +51,9 @@ namespace ESDWebserviceTemplate
         [WebGet(UriTemplate = "data/flags", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Json)]
         System.ServiceModel.Channels.Message getFlags();
 
+        [WebGet(UriTemplate = "data/general_ledger_accounts", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Json)]
+        System.ServiceModel.Channels.Message getGeneralLedgerAccounts();
+
         [WebGet(UriTemplate = "data/images", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Json)]
         System.ServiceModel.Channels.Message getImages();
 
@@ -111,6 +114,12 @@ namespace ESDWebserviceTemplate
         [WebGet(UriTemplate = "data/supplier_account_addresses", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Json)]
         System.ServiceModel.Channels.Message getSupplierAccountAddresses();
 
+        [WebGet(UriTemplate = "data/supplier_account_enquiry_record?keySupplierAccountID={keySupplierAccountID}&recordType={recordType}&keyRecordID={keyRecordID}", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Json)]
+        System.ServiceModel.Channels.Message getSupplierAccountEnquiryRecord(string keySupplierAccountID, string recordType, string keyRecordID);
+
+        [WebGet(UriTemplate = "data/supplier_account_enquiry_records?keySupplierAccountID={keySupplierAccountID}&recordType={recordType}&beginDate={beginDate}&endDate={endDate}&pageNumber={pageNumber}&numberOfRecords={numberOfRecords}&orderByField={orderByField}&orderByDirection={orderByDirection}&outstandingRecords={outstandingRecords}&searchString={searchString}&keyRecordIDs={keyRecordIDs}&searchType={searchType}", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Json)]
+        System.ServiceModel.Channels.Message getSupplierAccountEnquiry(string keySupplierAccountID, string recordType, long beginDate, long endDate, int pageNumber, int numberOfRecords, string orderByField, string orderByDirection, string outstandingRecords, string searchString, string keyRecordIDs, string searchType);
+
         [WebGet(UriTemplate = "data/surcharges", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Json)]
         System.ServiceModel.Channels.Message getSurcharges();
 
@@ -126,6 +135,9 @@ namespace ESDWebserviceTemplate
 
         [WebInvoke(UriTemplate = "data/purchase_orders", Method = "POST", BodyStyle = WebMessageBodyStyle.WrappedRequest, RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         System.ServiceModel.Channels.Message importPurchaseOrders();
+
+        [WebInvoke(UriTemplate = "data/supplier_invoices", Method = "POST", BodyStyle = WebMessageBodyStyle.WrappedRequest, RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        System.ServiceModel.Channels.Message importSupplierInvoices();
 
         [WebInvoke(UriTemplate = "data/customer_accounts", Method = "POST", BodyStyle = WebMessageBodyStyle.WrappedRequest, RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         System.ServiceModel.Channels.Message importCustomerAccounts();

@@ -11,6 +11,7 @@ using EcommerceStandardsDocuments;
 using System.Net;
 using Newtonsoft.Json;
 using System.Runtime.Serialization.Json;
+using System.Web;
 
 namespace ESDWebserviceTemplate
 {
@@ -555,7 +556,7 @@ namespace ESDWebserviceTemplate
                 {
                     //obtain record data based on the record type being requested
                     //This is where you would call a database or other data source to obtain and place data into the standards record objects
-                    if(recordType == ESDocumentCustomerAccountEnquiry.RECORD_TYPE_INVOICE)
+                    if(recordType == ESDocumentConstants.RECORD_TYPE_INVOICE)
                     {
                         List<ESDRecordCustomerAccountEnquiryInvoice> records = new List<ESDRecordCustomerAccountEnquiryInvoice>();
 
@@ -580,11 +581,15 @@ namespace ESDWebserviceTemplate
                             record.customerReference = "0405345345";
                             record.salesRepCode = "1";
                             record.salesRepName = "John Smith";
+                            record.deliveryOrgName = "John Doe Pty Ltd";
+                            record.deliveryContact = "Lee Brown";
                             record.deliveryAddress1 = "Unit 1";
                             record.deliveryAddress2 = "23 Example Street";
                             record.deliveryAddress3 = "Melbourne";
                             record.deliveryStateProvince = "Victoria";
                             record.deliveryCountry = "Australia";
+                            record.billingOrgName = "John Doe Pty Ltd";
+                            record.billingContact = "Sandra Dee";
                             record.billingAddress1 = "Level 5";
                             record.billingAddress2 = "34 Example Street";
                             record.billingAddress3 = "Melbourne";
@@ -638,10 +643,22 @@ namespace ESDWebserviceTemplate
                             lineRecord.referenceLineItemCode = "";
                             lineRecord.referenceLineCode = "";
                             lineRecords.Add(lineRecord);
+
+                            //add a text line to the  record
+                            lineRecord = new ESDRecordCustomerAccountEnquiryInvoiceLine();
+                            lineRecord.keyInvoiceLineID = "2";
+                            lineRecord.lineType = ESDocumentConstants.RECORD_LINE_TYPE_TEXT;
+                            lineRecord.description = "Tea towels are packed into cardboard boxes";
+                            lineRecords.Add(lineRecord);
+
+                            //add the list of lines to the record
                             record.lines = lineRecords.ToArray();
+
+                            //add the the record to the list of records
                             records.Add(record);
                         }
 
+                        //add the list of records to the Ecommerce Standaards document being retrieved
                         esDocumentCustomerAccountEnquiry.invoiceRecords = records.ToArray();
                         esDocumentCustomerAccountEnquiry.totalDataRecords = records.Count;
 
@@ -649,7 +666,7 @@ namespace ESDWebserviceTemplate
                         // This properties indicate to other systems importing the document on which record data can be inserted or overwritten
                         esDocumentConfigs.Add("dataFields", "alternateCode,isSupplierCode,isUseCode,keyProductID");
                     }
-                    else if (recordType == ESDocumentCustomerAccountEnquiry.RECORD_TYPE_BACKORDER)
+                    else if (recordType == ESDocumentConstants.RECORD_TYPE_BACKORDER)
                     {
                         List<ESDRecordCustomerAccountEnquiryBackOrder> records = new List<ESDRecordCustomerAccountEnquiryBackOrder>();
                         ESDRecordCustomerAccountEnquiryBackOrder record = new ESDRecordCustomerAccountEnquiryBackOrder();
@@ -659,7 +676,7 @@ namespace ESDWebserviceTemplate
                         esDocumentCustomerAccountEnquiry.backOrderRecords = records.ToArray();
                         esDocumentCustomerAccountEnquiry.totalDataRecords = records.Count;
                     }
-                    else if (recordType == ESDocumentCustomerAccountEnquiry.RECORD_TYPE_ORDER_SALE)
+                    else if (recordType == ESDocumentConstants.RECORD_TYPE_ORDER_SALE)
                     {
                         List<ESDRecordCustomerAccountEnquiryOrderSale> records = new List<ESDRecordCustomerAccountEnquiryOrderSale>();
                         ESDRecordCustomerAccountEnquiryOrderSale record = new ESDRecordCustomerAccountEnquiryOrderSale();
@@ -669,7 +686,7 @@ namespace ESDWebserviceTemplate
                         esDocumentCustomerAccountEnquiry.orderSaleRecords = records.ToArray();
                         esDocumentCustomerAccountEnquiry.totalDataRecords = records.Count;
                     }
-                    else if (recordType == ESDocumentCustomerAccountEnquiry.RECORD_TYPE_BACKORDER)
+                    else if (recordType == ESDocumentConstants.RECORD_TYPE_BACKORDER)
                     {
                         List<ESDRecordCustomerAccountEnquiryBackOrder> records = new List<ESDRecordCustomerAccountEnquiryBackOrder>();
                         ESDRecordCustomerAccountEnquiryBackOrder record = new ESDRecordCustomerAccountEnquiryBackOrder();
@@ -679,7 +696,7 @@ namespace ESDWebserviceTemplate
                         esDocumentCustomerAccountEnquiry.backOrderRecords = records.ToArray();
                         esDocumentCustomerAccountEnquiry.totalDataRecords = records.Count;
                     }
-                    else if (recordType == ESDocumentCustomerAccountEnquiry.RECORD_TYPE_PAYMENT)
+                    else if (recordType == ESDocumentConstants.RECORD_TYPE_PAYMENT)
                     {
                         List<ESDRecordCustomerAccountEnquiryPayment> records = new List<ESDRecordCustomerAccountEnquiryPayment>();
                         ESDRecordCustomerAccountEnquiryPayment record = new ESDRecordCustomerAccountEnquiryPayment();
@@ -689,7 +706,7 @@ namespace ESDWebserviceTemplate
                         esDocumentCustomerAccountEnquiry.paymentRecords = records.ToArray();
                         esDocumentCustomerAccountEnquiry.totalDataRecords = records.Count;
                     }
-                    else if (recordType == ESDocumentCustomerAccountEnquiry.RECORD_TYPE_CREDIT)
+                    else if (recordType == ESDocumentConstants.RECORD_TYPE_CREDIT)
                     {
                         List<ESDRecordCustomerAccountEnquiryCredit> records = new List<ESDRecordCustomerAccountEnquiryCredit>();
                         ESDRecordCustomerAccountEnquiryCredit record = new ESDRecordCustomerAccountEnquiryCredit();
@@ -699,7 +716,17 @@ namespace ESDWebserviceTemplate
                         esDocumentCustomerAccountEnquiry.creditRecords = records.ToArray();
                         esDocumentCustomerAccountEnquiry.totalDataRecords = records.Count;
                     }
-                    
+                    else if (recordType == ESDocumentConstants.RECORD_TYPE_QUOTE)
+                    {
+                        List<ESDRecordCustomerAccountEnquiryQuote> records = new List<ESDRecordCustomerAccountEnquiryQuote>();
+                        ESDRecordCustomerAccountEnquiryQuote record = new ESDRecordCustomerAccountEnquiryQuote();
+
+                        //obtain details of the specific quote record from the relevant data source
+
+                        esDocumentCustomerAccountEnquiry.quoteRecords = records.ToArray();
+                        esDocumentCustomerAccountEnquiry.totalDataRecords = records.Count;
+                    }
+
                     //update the details of the document after all records have sucessfully been obtained
                     esDocumentCustomerAccountEnquiry.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_CUSTOMER_ACCOUNT_ENQUIRY_RECORD, ESDocumentConstants.RESULT_SUCCESS);
                     esDocumentCustomerAccountEnquiry.resultStatus = ESDocumentConstants.RESULT_SUCCESS;
@@ -740,15 +767,7 @@ namespace ESDWebserviceTemplate
                 {
                     //obtain record data based on the record type being requested
                     //This is where you would call a database or other data source to obtain and place data into the standards record objects
-                    if (recordType == ESDocumentCustomerAccountEnquiry.RECORD_TYPE_TRANSACTION)
-                    {
-                        List<ESDRecordCustomerAccountEnquiryTransaction> records = new List<ESDRecordCustomerAccountEnquiryTransaction>();
-                        ESDRecordCustomerAccountEnquiryTransaction record = new ESDRecordCustomerAccountEnquiryTransaction();
-                        esDocumentCustomerAccountEnquiry.transactionRecords = records.ToArray();
-                        esDocumentCustomerAccountEnquiry.totalDataRecords = records.Count;
-
-                    }
-                    else if (recordType == ESDocumentCustomerAccountEnquiry.RECORD_TYPE_INVOICE)
+                    if (recordType == ESDocumentConstants.RECORD_TYPE_INVOICE)
                     {
                         List<ESDRecordCustomerAccountEnquiryInvoice> records = new List<ESDRecordCustomerAccountEnquiryInvoice>();
 
@@ -769,16 +788,20 @@ namespace ESDWebserviceTemplate
                             record.locationLabel = "Warehouse Location";
                             record.locationType = ESDocumentConstants.LOCATION_TYPE_WAREHOUSE;
                             record.referenceKeyID = "5646";
-                            record.referenceType = ESDocumentCustomerAccountEnquiry.RECORD_TYPE_ORDER_SALE;
+                            record.referenceType = ESDocumentConstants.RECORD_TYPE_ORDER_SALE;
                             record.referenceNumber = "SO-5646";
                             record.customerReference = "0405345345";
                             record.salesRepCode = "1";
                             record.salesRepName = "John Smith";
+                            record.deliveryOrgName = "John Doe Pty Ltd";
+                            record.deliveryContact = "Lee Brown";
                             record.deliveryAddress1 = "Unit 1";
                             record.deliveryAddress2 = "23 Example Street";
                             record.deliveryAddress3 = "Melbourne";
                             record.deliveryStateProvince = "Victoria";
                             record.deliveryCountry = "Australia";
+                            record.billingOrgName = "John Doe Pty Ltd";
+                            record.billingContact = "Sandra Dee";
                             record.billingAddress1 = "Level 5";
                             record.billingAddress2 = "34 Example Street";
                             record.billingAddress3 = "Melbourne";
@@ -805,17 +828,215 @@ namespace ESDWebserviceTemplate
                             record.description = "";
                             record.language = "EN-AU";
                             record.comment = "";
-                            records.Add(record);
+
+                            //filter the record to match any search requirements provided, note that these filters may be determined before retrieving the records, such as in database SQL queries or request URLs
+                            bool doesRecordMeetSearchRequirments = true;
+
+                            if(!String.IsNullOrEmpty(searchString))
+                            {
+                                //check if one of the record's fields needs to be matched on given search value
+                                if (!String.IsNullOrEmpty(searchType) && !String.IsNullOrEmpty(searchString))
+                                {
+                                    //find the record field to match on
+                                    switch (searchType.ToUpper())
+                                    {
+                                        case "KEYINVOICEID":
+                                            //check that the the search text fuzzy matches on the record's key identifier, ignoring case
+                                            if (!record.keyInvoiceID.ToUpper().Contains(searchString.Trim().ToUpper()))
+                                            {
+                                                doesRecordMeetSearchRequirments = false;
+                                            }
+                                            break;
+                                        case "INVOICENUMBER":
+                                            //check that the the search text fuzzy matches on the record's invoice number field, ignoring case
+                                            if (!record.invoiceNumber.ToUpper().Contains(searchString.Trim().ToUpper()))
+                                            {
+                                                doesRecordMeetSearchRequirments = false;
+                                            }
+
+                                            break;
+                                    }
+                                }
+                                //if no search field is given then search on a default record field
+                                else
+                                {
+                                    //check that the the search text fuzzy matches on the record's invoice number field, ignoring case
+                                    if (!record.invoiceNumber.ToUpper().Contains(searchString.Trim().ToUpper()))
+                                    {
+                                        doesRecordMeetSearchRequirments = false;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                //check that the record is within the date range required
+                                if (beginDate > 0 && endDate > 0)
+                                {
+                                    if (record.invoiceDate < beginDate || record.invoiceDate > endDate)
+                                    {
+                                        doesRecordMeetSearchRequirments = false;
+                                    }
+                                }
+                                //check that the record has a date after the begin date specified
+                                else if (beginDate > 0 && record.invoiceDate < beginDate)
+                                {
+                                    doesRecordMeetSearchRequirments = false;
+                                }
+                                //check that the record has a date before the end date specified
+                                else if (endDate > 0 && record.invoiceDate > endDate)
+                                {
+                                    doesRecordMeetSearchRequirments = false;
+                                }
+                            }
+
+                            //if the list of key record identifiers is given then see if the record matches any key IDs in the list
+                            if(!String.IsNullOrEmpty(keyRecordIDs))
+                            {
+                                bool recordMatching = false;
+
+                                //split the list on comma character, note that each value is URL encoded to ensure literal comma values can be correctly handled
+                                foreach (string keyRecordID in keyRecordIDs.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                                {
+                                    //URL decode the key identifier value then exact match (ignoring case) with the search string
+                                    if (HttpUtility.UrlDecode(keyRecordID).ToUpper() == searchString.ToUpper()){
+                                        recordMatching = true;
+                                        break;
+                                    }
+                                }
+
+                                //if the record's key identifier is not matched on at least one of the list's values then ignore returning the record
+                                if (!recordMatching){
+                                    doesRecordMeetSearchRequirments = false;
+                                }
+                            }
+
+                            // check if only outstanding/unpaid records should be returned, if so check that the invoice hasn't been fully paid
+                            if (!String.IsNullOrEmpty(outstandingRecords) && outstandingRecords.ToUpper() == "TRUE" && record.balance <= 0)
+                            {
+                                doesRecordMeetSearchRequirments = false;
+                            }
+
+                            //only if the record meets all the search criteria should the record be added to the record list and be returned
+                            if(doesRecordMeetSearchRequirments)
+                            {
+                                records.Add(record);
+                            }
                         }
 
+                        // determine how the list of records should be ordered, either in an ascending or descending direction
+                        bool sortRecordsDescending = true;
+                        if (!String.IsNullOrEmpty(orderByDirection) && orderByDirection.ToUpper() == "ASC"){
+                            sortRecordsDescending = false;
+                        }
+
+                        // determine which field should be used to order records by, by default use the record date field
+                        string sortingRecordField = "invoiceDate";
+                        if (!String.IsNullOrEmpty(orderByField)){
+                            //check if a different record should be used to store
+                        }
+
+                        //re-sort all all records in the list based on the record field specified in the order by field and the sorting direction
+
+                        // limit the amount of records to the current page being asked for if the page number is a positive number
+                        if (pageNumber > 0){
+                            //set default records per page settings, adjust these numbers based on what is tolerated in your system
+                            int recordsPerPage = 100;
+                            int maxRecordsPerPage = 500;
+
+                            //check that the number of reocrds being retrieved is valid, if not then use default values
+                            if(numberOfRecords > 0)
+                            {
+                                //check that the number of records being asked for is less than the maximum allowed amount
+                                if(numberOfRecords <= maxRecordsPerPage){
+                                    numberOfRecords = maxRecordsPerPage;
+                                }
+                            }
+
+                            //write code to only return a page of records, based on the records that are allowed to page
+                        }
+
+                        //add the records to the Ecommerce Standards document list
                         esDocumentCustomerAccountEnquiry.invoiceRecords = records.ToArray();
+
+                        //update the number of records count in the ESDocument
                         esDocumentCustomerAccountEnquiry.totalDataRecords = records.Count;
 
                         // add a document config that specifies all of the record properties that may contain data in the document
                         // This properties indicate to other systems importing the document on which record data can be inserted or overwritten
-                        esDocumentConfigs.Add("dataFields", "keyInvoiceID,invoiceID,keyCustomerAccountID,customerAccountCode,invoiceNumber,creationDate,invoiceDate,dueDate,keyLocationID,locationCode,locationLabel,locationType,referenceKeyID,referenceType,referenceNumber,customerReference,salesRepCode,salesRepName,deliveryAddress1,deliveryAddress2,deliveryAddress3,deliveryStateProvince,deliveryCountry,billingAddress1,billingAddress2,billingAddress3,billingStateProvince,billingCountry,taxNumber,taxLabel,taxRate,totalExTax,totalIncTax,totalTax,totalFreightIncTax,totalFreightExTax,totalExtraChargesIncTax,totalExtraChargesExTax,totalDiscountsIncTax,totalDiscountsExTax,totalLeviesIncTax,totalLeviesExTax,totalPaid,balance,currencyCode,totalQuantity,description,language,comment");
+                        esDocumentConfigs.Add("dataFields", "keyInvoiceID,invoiceID,keyCustomerAccountID,customerAccountCode,invoiceNumber,creationDate,invoiceDate,dueDate,keyLocationID,locationCode,locationLabel,locationType,referenceKeyID,referenceType,referenceNumber,customerReference,salesRepCode,salesRepName,deliveryOrgName,deliveryContact,deliveryAddress1,deliveryAddress2,deliveryAddress3,deliveryStateProvince,deliveryCountry,billingOrgName,billingContact,billingAddress1,billingAddress2,billingAddress3,billingStateProvince,billingCountry,taxNumber,taxLabel,taxRate,totalExTax,totalIncTax,totalTax,totalFreightIncTax,totalFreightExTax,totalExtraChargesIncTax,totalExtraChargesExTax,totalDiscountsIncTax,totalDiscountsExTax,totalLeviesIncTax,totalLeviesExTax,totalPaid,balance,currencyCode,totalQuantity,description,language,comment");
                     }
-                    else if (recordType == ESDocumentCustomerAccountEnquiry.RECORD_TYPE_BACKORDER)
+                    if (recordType == ESDocumentConstants.RECORD_TYPE_TRANSACTION)
+                    {
+                        List<ESDRecordCustomerAccountEnquiryTransaction> records = new List<ESDRecordCustomerAccountEnquiryTransaction>();
+
+                        //add record to denote the closing balance of the customer account (negative balance denotes the customer still owes money)
+                        ESDRecordCustomerAccountEnquiryTransaction record = new ESDRecordCustomerAccountEnquiryTransaction();
+                        record.keyTransactionID = "";
+                        record.keyCustomerAccountID = "1";
+                        record.transactionDate = 1563976800000; // 2019-07-25 12AM UTC
+                        record.creationDate = 1563976800000;
+                        record.currencyCode = "AUD";
+                        record.description = "Closing Balance";
+                        record.balance = (decimal)-41.00;
+                        record.language = "EN-AU";
+                        records.Add(record);
+
+                        //add a credit transaction that indicates the amount that a customer has paid back on their account
+                        record = new ESDRecordCustomerAccountEnquiryTransaction();
+                        record.keyTransactionID = "1";
+                        record.keyCustomerAccountID = "1";
+                        record.transactionID = "T001";
+                        record.transactionNumber = "TRANS-001";
+                        record.transactionDate = 1563890400000; // 2019-07-24 12AM UTC
+                        record.creationDate = 1563890400000;
+                        record.currencyCode = "AUD";
+                        record.description = "Invoice Payment";
+                        record.creditAmount = (decimal)80.00;
+                        record.balance = (decimal)-41.00;
+                        record.referenceKeyID = "342423";
+                        record.referenceNumber = "PAY-342423";
+                        record.referenceType = ESDocumentConstants.RECORD_TYPE_PAYMENT;
+                        record.language = "EN-AU";
+                        records.Add(record);
+
+                        //add a debit transaction record that indicates the amount that the customer owes for an invoice raised
+                        record = new ESDRecordCustomerAccountEnquiryTransaction();
+                        record.keyTransactionID = "1";
+                        record.keyCustomerAccountID = "1";
+                        record.transactionID = "T001";
+                        record.transactionNumber = "TRANS-001";
+                        record.transactionDate = 1563804000000; // 2019-07-23 12AM UTC
+                        record.creationDate = 1563804000000;
+                        record.currencyCode = "AUD";
+                        record.description = "Invoice Raised";
+                        record.debitAmount = (decimal)121.00;
+                        record.balance = (decimal)-121.00;
+                        record.referenceKeyID = "34652";
+                        record.referenceNumber = "INV-34652";
+                        record.referenceType = ESDocumentConstants.RECORD_TYPE_INVOICE;
+                        record.language = "EN-AU";
+                        records.Add(record);
+
+                        //add record to denote the starting balance of the customer account
+                        record = new ESDRecordCustomerAccountEnquiryTransaction();
+                        record.keyTransactionID = "";
+                        record.keyCustomerAccountID = "1";
+                        record.transactionDate = 1563544800000; // 2019-07-20 12AM UTC
+                        record.creationDate = 1563544800000;
+                        record.currencyCode = "AUD";
+                        record.description = "Starting Balance";
+                        record.balance = 0;
+                        record.language = "EN-AU";
+                        records.Add(record);
+
+                        //perform record filtering to limit the records returned, see record filtering example for invoices above on how to do this
+
+                        //add the transaction records to the Ecommerce Standards documents list
+                        esDocumentCustomerAccountEnquiry.transactionRecords = records.ToArray();
+                        esDocumentCustomerAccountEnquiry.totalDataRecords = records.Count;
+
+                    }
+                    else if (recordType == ESDocumentConstants.RECORD_TYPE_BACKORDER)
                     {
                         List<ESDRecordCustomerAccountEnquiryBackOrder> records = new List<ESDRecordCustomerAccountEnquiryBackOrder>();
                         ESDRecordCustomerAccountEnquiryBackOrder record = new ESDRecordCustomerAccountEnquiryBackOrder();
@@ -825,7 +1046,7 @@ namespace ESDWebserviceTemplate
                         esDocumentCustomerAccountEnquiry.backOrderRecords = records.ToArray();
                         esDocumentCustomerAccountEnquiry.totalDataRecords = records.Count;
                     }
-                    else if (recordType == ESDocumentCustomerAccountEnquiry.RECORD_TYPE_ORDER_SALE)
+                    else if (recordType == ESDocumentConstants.RECORD_TYPE_ORDER_SALE)
                     {
                         List<ESDRecordCustomerAccountEnquiryOrderSale> records = new List<ESDRecordCustomerAccountEnquiryOrderSale>();
                         ESDRecordCustomerAccountEnquiryOrderSale record = new ESDRecordCustomerAccountEnquiryOrderSale();
@@ -835,7 +1056,7 @@ namespace ESDWebserviceTemplate
                         esDocumentCustomerAccountEnquiry.orderSaleRecords = records.ToArray();
                         esDocumentCustomerAccountEnquiry.totalDataRecords = records.Count;
                     }
-                    else if (recordType == ESDocumentCustomerAccountEnquiry.RECORD_TYPE_BACKORDER)
+                    else if (recordType == ESDocumentConstants.RECORD_TYPE_BACKORDER)
                     {
                         List<ESDRecordCustomerAccountEnquiryBackOrder> records = new List<ESDRecordCustomerAccountEnquiryBackOrder>();
                         ESDRecordCustomerAccountEnquiryBackOrder record = new ESDRecordCustomerAccountEnquiryBackOrder();
@@ -845,7 +1066,7 @@ namespace ESDWebserviceTemplate
                         esDocumentCustomerAccountEnquiry.backOrderRecords = records.ToArray();
                         esDocumentCustomerAccountEnquiry.totalDataRecords = records.Count;
                     }
-                    else if (recordType == ESDocumentCustomerAccountEnquiry.RECORD_TYPE_PAYMENT)
+                    else if (recordType == ESDocumentConstants.RECORD_TYPE_PAYMENT)
                     {
                         List<ESDRecordCustomerAccountEnquiryPayment> records = new List<ESDRecordCustomerAccountEnquiryPayment>();
                         ESDRecordCustomerAccountEnquiryPayment record = new ESDRecordCustomerAccountEnquiryPayment();
@@ -855,7 +1076,7 @@ namespace ESDWebserviceTemplate
                         esDocumentCustomerAccountEnquiry.paymentRecords = records.ToArray();
                         esDocumentCustomerAccountEnquiry.totalDataRecords = records.Count;
                     }
-                    else if (recordType == ESDocumentCustomerAccountEnquiry.RECORD_TYPE_CREDIT)
+                    else if (recordType == ESDocumentConstants.RECORD_TYPE_CREDIT)
                     {
                         List<ESDRecordCustomerAccountEnquiryCredit> records = new List<ESDRecordCustomerAccountEnquiryCredit>();
                         ESDRecordCustomerAccountEnquiryCredit record = new ESDRecordCustomerAccountEnquiryCredit();
@@ -863,6 +1084,16 @@ namespace ESDWebserviceTemplate
                         //obtain a list of credit records from the relevant data source
 
                         esDocumentCustomerAccountEnquiry.creditRecords = records.ToArray();
+                        esDocumentCustomerAccountEnquiry.totalDataRecords = records.Count;
+                    }
+                    else if (recordType == ESDocumentConstants.RECORD_TYPE_QUOTE)
+                    {
+                        List<ESDRecordCustomerAccountEnquiryQuote> records = new List<ESDRecordCustomerAccountEnquiryQuote>();
+                        ESDRecordCustomerAccountEnquiryQuote record = new ESDRecordCustomerAccountEnquiryQuote();
+
+                        //obtain a list of quote records from the relevant data source
+
+                        esDocumentCustomerAccountEnquiry.quoteRecords = records.ToArray();
                         esDocumentCustomerAccountEnquiry.totalDataRecords = records.Count;
                     }
 
@@ -905,7 +1136,7 @@ namespace ESDWebserviceTemplate
                 {
                     //obtain record data based on the record type being requested
                     //This is where you would call a database or other data source to obtain and place data into the standards record objects
-                    if (recordType == ESDocumentCustomerAccountEnquiry.RECORD_TYPE_INVOICE)
+                    if (recordType == ESDocumentConstants.RECORD_TYPE_INVOICE)
                     {
                         List<ESDRecordCustomerAccountEnquiryInvoiceLine> records = new List<ESDRecordCustomerAccountEnquiryInvoiceLine>();
 
@@ -1267,6 +1498,80 @@ namespace ESDWebserviceTemplate
 
             //serializes the ESD document
             return serializeESDocument(esDocumentFlags);
+        }
+
+        /// <summary>Obtains an Ecommerce Standards Document containing an array of general ledger account records</summary>
+        /// <returns>Serialized Ecommerce Standards Document in the JSON data format</returns>
+        public System.ServiceModel.Channels.Message getGeneralLedgerAccounts()
+        {
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_GENERAL_LEDGER_ACCOUNTS, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_START, "");
+
+            //create Ecommerce standards document for storing records
+            Dictionary<string, string> esDocumentConfigs = new Dictionary<string, string>();
+            ESDocumentGeneralLedgerAccount eSDocumentGeneralLedgerAccount = new ESDocumentGeneralLedgerAccount(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_GENERAL_LEDGER_ACCOUNTS, ESDocumentConstants.RESULT_ERROR_UNKNOWN), new ESDRecordGeneralLedgerAccount[] { }, esDocumentConfigs);
+
+            try
+            {
+                //check that data is allowed to be returned from the web service based on the incomming HTTP request headers
+                if (checkRequestCredentials())
+                {
+                    //obtain record data
+                    //This is where you would call a database or other data source to obtain and place data into the standards record objects
+                    List<ESDRecordGeneralLedgerAccount> records = new List<ESDRecordGeneralLedgerAccount>();
+
+                    //add record data to the document
+                    ESDRecordGeneralLedgerAccount record = new ESDRecordGeneralLedgerAccount();
+                    record.keyGLAccountID = "111";
+                    record.glAccountCode = "3000";
+                    record.name = "Operating Revenue Account";
+                    record.description = "Records transactions for revenue that is generated in day-to-day trading activities";
+                    record.accountClass = "Revenue";
+                    record.balance = (decimal)200123.34;
+                    record.keyTaxcodeID = "TAXGST";
+                    record.keyParentGLAccountID = "3";
+                    record.accountType = ESDocumentConstants.GENERAL_LEDGER_ACCOUNT_TYPE_OPERATING_REVENUE;
+                    records.Add(record);
+
+                    //create a 2nd record
+                    record = new ESDRecordGeneralLedgerAccount();
+                    record.keyGLAccountID = "2";
+                    record.glAccountCode = "1150";
+                    record.name = "Buildings and land assets";
+                    record.description = "Records transactions associated with building and land assets owned by the business";
+                    record.accountClass = "Asset";
+                    record.balance = (decimal)100023.43;
+                    record.keyTaxcodeID = "TAXGST";
+                    record.keyParentGLAccountID = "1";
+                    record.accountType = ESDocumentConstants.GENERAL_LEDGER_ACCOUNT_TYPE_ASSET;
+                    records.Add(record);
+
+                    //update the details of the document after all records have sucessfully been obtained
+                    eSDocumentGeneralLedgerAccount.dataRecords = records.ToArray();
+                    eSDocumentGeneralLedgerAccount.totalDataRecords = records.Count;
+                    eSDocumentGeneralLedgerAccount.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_GENERAL_LEDGER_ACCOUNTS, ESDocumentConstants.RESULT_SUCCESS);
+                    eSDocumentGeneralLedgerAccount.resultStatus = ESDocumentConstants.RESULT_SUCCESS;
+
+                    // add a document config that specifies all of the record properties that may contain data in the document
+                    // This properties indicate to other systems importing the document on which record data can be inserted or overwritten
+                    esDocumentConfigs.Add("dataFields", "");
+                }
+                else
+                {
+                    eSDocumentGeneralLedgerAccount.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_GENERAL_LEDGER_ACCOUNTS, ESDocumentConstants.RESULT_ERROR_CONNECTOR_INVALID_CREDENTIALS);
+                    eSDocumentGeneralLedgerAccount.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_INVALID_CREDENTIALS;
+                }
+            }
+            catch (Exception ex)
+            {
+                eSDocumentGeneralLedgerAccount.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_GENERAL_LEDGER_ACCOUNTS, ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING);
+                eSDocumentGeneralLedgerAccount.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING;
+            }
+
+            //output message to the console
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_GENERAL_LEDGER_ACCOUNTS, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_END, eSDocumentGeneralLedgerAccount.message);
+
+            //serializes the ESD document into 
+            return serializeESDocument(eSDocumentGeneralLedgerAccount);
         }
 
         /// <summary>Obtains an Ecommerce Standards Document containing an array of image records associated to products, downloads, and/or labour</summary>
@@ -2813,6 +3118,274 @@ namespace ESDWebserviceTemplate
             return serializeESDocument(esDocumentSupplierAccountAddresses);
         }
 
+        /// <summary>Obtains an Ecommerce Standards Document containing an array of account enquiry records associated to a supplier account and a single record</summary>
+        /// <returns>Serialized Ecommerce Standards Document in the JSON data format</returns>
+        public System.ServiceModel.Channels.Message getSupplierAccountEnquiryRecord(string keySupplierAccountID, string recordType, string keyRecordID)
+        {
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_SUPPLIER_ACCOUNT_ENQUIRY_RECORD, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_START, "");
+
+            //create Ecommerce standards document for storing records
+            Dictionary<string, string> esDocumentConfigs = new Dictionary<string, string>();
+            ESDocumentSupplierAccountEnquiry esDocumentSupplierAccountEnquiry = new ESDocumentSupplierAccountEnquiry(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_SUPPLIER_ACCOUNT_ENQUIRY_RECORD, ESDocumentConstants.RESULT_ERROR_UNKNOWN), esDocumentConfigs);
+
+            try
+            {
+                //check that data is allowed to be returned from the web service based on the incomming HTTP request headers
+                if (checkRequestCredentials())
+                {
+                    //obtain record data based on the record type being requested
+                    //This is where you would call a database or other data source to obtain and place data into the standards record objects
+                    if (recordType == ESDocumentConstants.RECORD_TYPE_ORDER_PURCHASE)
+                    {
+                        List<ESDRecordSupplierAccountEnquiryOrderPurchase> records = new List<ESDRecordSupplierAccountEnquiryOrderPurchase>();
+
+                        if (keySupplierAccountID == "1" && keyRecordID == "34644")
+                        {
+                            ESDRecordSupplierAccountEnquiryOrderPurchase record = new ESDRecordSupplierAccountEnquiryOrderPurchase();
+                            record.keyOrderPurchaseID = "12";
+                            record.orderID = "PURCHASEORDER-12";
+                            record.keySupplierAccountID = "222";
+                            record.supplierAccountCode = "SUPPLIER004";
+                            record.orderNumber = "4324234";
+                            record.creationDate = (long)DateTime.Now.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds;
+                            record.orderDate = (long)DateTime.Now.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds;
+                            record.dueDate = (long)DateTime.Now.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds;
+                            record.keyLocationID = "456";
+                            record.locationCode = "LCT-456";
+                            record.locationLabel = "Warehouse LCT";
+                            record.locationType = ESDocumentConstants.LOCATION_TYPE_WAREHOUSE;
+                            record.referenceKeyID = "112";
+                            record.referenceType = ESDocumentConstants.RECORD_TYPE_INVOICE;
+                            record.referenceNumber = "1234123";
+                            record.purchaserCode = "JD";
+                            record.purchaserName = "John Doe";
+                            record.deliveryContact = "Lee";
+                            record.deliveryOrgName = "Lee's Business Pty Ltd";
+                            record.deliveryAddress1 = "22";
+                            record.deliveryAddress2 = "Bourkie Street";
+                            record.deliveryAddress3 = "Melbourne";
+                            record.deliveryStateProvince = "Victoria";
+                            record.deliveryCountry = "Australia";
+                            record.deliveryPostcode = "3000";
+                            record.billingContact = "Tom";
+                            record.billingOrgName = "Lee's Business Pty Ltd";
+                            record.billingAddress1 = "15";
+                            record.billingAddress2 = "Bourkie Street";
+                            record.billingAddress3 = "Melbourne";
+                            record.billingStateProvince = "Victoria";
+                            record.billingCountry = "Australia";
+                            record.billingPostcode = "3000";
+                            record.taxNumber = "123 12332 123";
+                            record.taxLabel = "Goods and Services Tax";
+                            record.taxRate = (decimal)10.00;
+                            record.totalExTax = (decimal)110.00;
+                            record.totalIncTax = (decimal)121.00;
+                            record.totalTax = (decimal)11.00;
+                            record.totalFreightIncTax = (decimal)11.00;
+                            record.totalFreightExTax = (decimal)10.00;
+                            record.totalExtraChargesIncTax = 0;
+                            record.totalExtraChargesExTax = 0;
+                            record.totalDiscountsIncTax = 0;
+                            record.totalDiscountsExTax = 0;
+                            record.totalLeviesIncTax = 0;
+                            record.totalLeviesExTax = 0;
+                            record.totalPaid = (decimal)110.00;
+                            record.balance = 0;
+                            record.currencyCode = "AUD";
+                            record.totalQuantity = 2;
+                            record.description = "";
+                            record.language = "EN-AU";
+                            record.comment = "";
+
+                            //obtain record lines
+                            List<ESDRecordSupplierAccountEnquiryOrderPurchaseLine> lineRecords = new List<ESDRecordSupplierAccountEnquiryOrderPurchaseLine>();
+                            ESDRecordSupplierAccountEnquiryOrderPurchaseLine lineRecord = new ESDRecordSupplierAccountEnquiryOrderPurchaseLine();
+
+                            //add a product line to the purchase order record
+                            lineRecord = new ESDRecordSupplierAccountEnquiryOrderPurchaseLine();
+                            lineRecord.keyOrderPurchaseLineID = "4122";
+                            lineRecord.lineItemID = "PROD1234453";
+                            lineRecord.lineItemCode = "PRODUCT-123";
+                            lineRecord.lineType = ESDocumentConstants.RECORD_LINE_TYPE_ITEM;
+                            lineRecord.description = "Tea Towels";
+                            lineRecord.UNSPSC = "";
+                            lineRecord.language = "EN-AU";
+                            lineRecord.unit = "EACH";
+                            lineRecord.quantityOrdered = 22;
+                            lineRecord.quantityDelivered = 22;
+                            lineRecord.quantityBackordered = 0;
+                            lineRecord.priceExTax = (decimal)300.00;
+                            lineRecord.priceIncTax = (decimal)330.00;
+                            lineRecord.priceTax = (decimal)30.00;
+                            lineRecord.totalPriceExTax = (decimal)6600.00;
+                            lineRecord.totalPriceIncTax = (decimal)7260.00;
+                            lineRecord.totalPriceTax = (decimal)660;
+                            lineRecord.taxCode = "GST";
+                            lineRecord.keyLocationID = "456";
+                            lineRecord.locationCode = "LCT-456";
+                            lineRecord.currencyCode = "AUD";
+                            lineRecord.referenceLineItemCode = "";
+                            lineRecord.referenceLineCode = "";
+                            lineRecords.Add(lineRecord);
+
+                            //add a text line to the purchase order record
+                            lineRecord = new ESDRecordSupplierAccountEnquiryOrderPurchaseLine();
+                            lineRecord.keyOrderPurchaseLineID = "11234124";
+                            lineRecord.lineType = ESDocumentConstants.RECORD_LINE_TYPE_TEXT;
+                            lineRecord.description = "Tea towels are packed into cardboard boxes";
+                            lineRecords.Add(lineRecord);
+
+                            //add the list of order lines to the purchase order record
+                            record.lines = lineRecords.ToArray();
+
+                            //add the purchase order record to the list of purchase order records
+                            records.Add(record);
+                        }
+
+                        //add the list of purchase order record to the final Ecommerce Standards document being returned
+                        esDocumentSupplierAccountEnquiry.orderPurchaseRecords = records.ToArray();
+                        esDocumentSupplierAccountEnquiry.totalDataRecords = records.Count;
+
+                        // add a document config that specifies all of the record properties that may contain data in the document
+                        // This properties indicate to other systems importing the document on which record data can be inserted or overwritten
+                        esDocumentConfigs.Add("dataFields", "keyOrderPurchaseID,orderID,keySupplierAccountID,supplierAccountCode,orderNumber,creationDate,orderDate,dueDate,keyLocationID,locationCode,locationLabel,locationType,referenceKeyID,referenceType,referenceNumber,purchaserCode,purchaserName,deliveryContact,deliveryOrgName,deliveryAddress1,deliveryAddress2,deliveryAddress3,deliveryStateProvince,deliveryCountry,billingContact,billingOrgName,billingAddress1,billingAddress2,billingAddress3,billingStateProvince,billingCountry,taxNumber,taxLabel,taxRate,totalExTax,totalIncTax,totalTax,totalFreightIncTax,totalFreightExTax,totalExtraChargesIncTax,totalExtraChargesExTax,totalDiscountsIncTax,totalDiscountsExTax,totalLeviesIncTax,totalLeviesExTax,totalPaid,balance,currencyCode,totalQuantity,description,language,comment,lines");
+                    }
+
+                    //update the details of the document after all records have sucessfully been obtained
+                    esDocumentSupplierAccountEnquiry.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_SUPPLIER_ACCOUNT_ENQUIRY_RECORD, ESDocumentConstants.RESULT_SUCCESS);
+                    esDocumentSupplierAccountEnquiry.resultStatus = ESDocumentConstants.RESULT_SUCCESS;
+                }
+                else
+                {
+                    esDocumentSupplierAccountEnquiry.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_SUPPLIER_ACCOUNT_ENQUIRY_RECORD, ESDocumentConstants.RESULT_ERROR_CONNECTOR_INVALID_CREDENTIALS);
+                    esDocumentSupplierAccountEnquiry.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_INVALID_CREDENTIALS;
+                }
+            }
+            catch (Exception ex)
+            {
+                esDocumentSupplierAccountEnquiry.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_SUPPLIER_ACCOUNT_ENQUIRY_RECORD, ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING);
+                esDocumentSupplierAccountEnquiry.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING;
+            }
+
+            //output message to the console
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_SUPPLIER_ACCOUNT_ENQUIRY_RECORD, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_END, esDocumentSupplierAccountEnquiry.message);
+
+            //serializes the ESD document
+            return serializeESDocument(esDocumentSupplierAccountEnquiry);
+        }
+
+        /// <summary>Obtains an Ecommerce Standards Document containing an array of account enquiry records associated to a supplier account</summary>
+        /// <returns>Serialized Ecommerce Standards Document in the JSON data format</returns>
+        public System.ServiceModel.Channels.Message getSupplierAccountEnquiry(string keySupplierAccountID, string recordType, long beginDate, long endDate, int pageNumber, int numberOfRecords, string orderByField, string orderByDirection, string outstandingRecords, string searchString, string keyRecordIDs, string searchType)
+        {
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_SUPPLIER_ACCOUNT_ENQUIRY, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_START, "");
+
+            //create Ecommerce standards document for storing records
+            Dictionary<string, string> esDocumentConfigs = new Dictionary<string, string>();
+            ESDocumentSupplierAccountEnquiry esDocumentSupplierAccountEnquiry = new ESDocumentSupplierAccountEnquiry(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_SUPPLIER_ACCOUNT_ENQUIRY, ESDocumentConstants.RESULT_ERROR_UNKNOWN), esDocumentConfigs);
+
+            try
+            {
+                //check that data is allowed to be returned from the web service based on the incomming HTTP request headers
+                if (checkRequestCredentials())
+                {
+                    //obtain record data based on the record type being requested
+                    //This is where you would call a database or other data source to obtain and place data into the standards record objects
+                    if (recordType == ESDocumentConstants.RECORD_TYPE_ORDER_PURCHASE)
+                    {
+                        List<ESDRecordSupplierAccountEnquiryOrderPurchase> records = new List<ESDRecordSupplierAccountEnquiryOrderPurchase>();
+
+                        //use arguments to filter records based on supplier account ID, dates, pagination, and search filters
+                        if (keySupplierAccountID == "1")
+                        {
+                            ESDRecordSupplierAccountEnquiryOrderPurchase record = new ESDRecordSupplierAccountEnquiryOrderPurchase();
+                            record.keyOrderPurchaseID = "12";
+                            record.orderID = "PURCHASEORDER-12";
+                            record.keySupplierAccountID = "222";
+                            record.supplierAccountCode = "SUPPLIER004";
+                            record.orderNumber = "4324234";
+                            record.creationDate = (long)DateTime.Now.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds;
+                            record.orderDate = (long)DateTime.Now.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds;
+                            record.dueDate = (long)DateTime.Now.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds;
+                            record.keyLocationID = "456";
+                            record.locationCode = "LCT-456";
+                            record.locationLabel = "Warehouse LCT";
+                            record.locationType = ESDocumentConstants.LOCATION_TYPE_WAREHOUSE;
+                            record.referenceKeyID = "112";
+                            record.referenceType = ESDocumentConstants.RECORD_TYPE_INVOICE;
+                            record.referenceNumber = "1234123";
+                            record.purchaserCode = "JD";
+                            record.purchaserName = "John Doe";
+                            record.deliveryContact = "Lee";
+                            record.deliveryOrgName = "Lee's Business Pty Ltd";
+                            record.deliveryAddress1 = "22";
+                            record.deliveryAddress2 = "Bourkie Street";
+                            record.deliveryAddress3 = "Melbourne";
+                            record.deliveryStateProvince = "Victoria";
+                            record.deliveryCountry = "Australia";
+                            record.deliveryPostcode = "3000";
+                            record.billingContact = "Tom";
+                            record.billingOrgName = "Lee's Business Pty Ltd";
+                            record.billingAddress1 = "15";
+                            record.billingAddress2 = "Bourkie Street";
+                            record.billingAddress3 = "Melbourne";
+                            record.billingStateProvince = "Victoria";
+                            record.billingCountry = "Australia";
+                            record.billingPostcode = "3000";
+                            record.taxNumber = "123 12332 123";
+                            record.taxLabel = "Goods and Services Tax";
+                            record.taxRate = (decimal)10.00;
+                            record.totalExTax = (decimal)110.00;
+                            record.totalIncTax = (decimal)121.00;
+                            record.totalTax = (decimal)11.00;
+                            record.totalFreightIncTax = (decimal)11.00;
+                            record.totalFreightExTax = (decimal)10.00;
+                            record.totalExtraChargesIncTax = 0;
+                            record.totalExtraChargesExTax = 0;
+                            record.totalDiscountsIncTax = 0;
+                            record.totalDiscountsExTax = 0;
+                            record.totalLeviesIncTax = 0;
+                            record.totalLeviesExTax = 0;
+                            record.totalPaid = (decimal)110.00;
+                            record.balance = 0;
+                            record.currencyCode = "AUD";
+                            record.totalQuantity = 2;
+                            record.description = "";
+                            record.language = "EN-AU";
+                            record.comment = "";
+                            records.Add(record);
+                        }
+
+                        esDocumentSupplierAccountEnquiry.orderPurchaseRecords = records.ToArray();
+                        esDocumentSupplierAccountEnquiry.totalDataRecords = records.Count;
+
+                        // add a document config that specifies all of the record properties that may contain data in the document
+                        // This properties indicate to other systems importing the document on which record data can be inserted or overwritten
+                        esDocumentConfigs.Add("dataFields", "keyOrderPurchaseID,orderID,keySupplierAccountID,supplierAccountCode,orderNumber,creationDate,orderDate,dueDate,keyLocationID,locationCode,locationLabel,locationType,referenceKeyID,referenceType,referenceNumber,purchaserCode,purchaserName,deliveryContact,deliveryOrgName,deliveryAddress1,deliveryAddress2,deliveryAddress3,deliveryStateProvince,deliveryCountry,billingContact,billingOrgName,billingAddress1,billingAddress2,billingAddress3,billingStateProvince,billingCountry,taxNumber,taxLabel,taxRate,totalExTax,totalIncTax,totalTax,totalFreightIncTax,totalFreightExTax,totalExtraChargesIncTax,totalExtraChargesExTax,totalDiscountsIncTax,totalDiscountsExTax,totalLeviesIncTax,totalLeviesExTax,totalPaid,balance,currencyCode,totalQuantity,description,language,comment");
+                    }
+
+                    esDocumentSupplierAccountEnquiry.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_SUPPLIER_ACCOUNT_ENQUIRY, ESDocumentConstants.RESULT_SUCCESS);
+                    esDocumentSupplierAccountEnquiry.resultStatus = ESDocumentConstants.RESULT_SUCCESS;
+                }
+                else
+                {
+                    esDocumentSupplierAccountEnquiry.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_SUPPLIER_ACCOUNT_ENQUIRY, ESDocumentConstants.RESULT_ERROR_CONNECTOR_INVALID_CREDENTIALS);
+                    esDocumentSupplierAccountEnquiry.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_INVALID_CREDENTIALS;
+                }
+            }
+            catch (Exception ex)
+            {
+                esDocumentSupplierAccountEnquiry.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_SUPPLIER_ACCOUNT_ENQUIRY, ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING);
+                esDocumentSupplierAccountEnquiry.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING;
+            }
+
+            //output message to the console
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_SUPPLIER_ACCOUNT_ENQUIRY, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_END, esDocumentSupplierAccountEnquiry.message);
+
+            //serializes the ESD document
+            return serializeESDocument(esDocumentSupplierAccountEnquiry);
+        }
+
         /// <summary>Obtains an Ecommerce Standards Document containing an array of surcharge records</summary>
         /// <returns>Serialized Ecommerce Standards Document in the JSON data format</returns>
         public System.ServiceModel.Channels.Message getSurcharges()
@@ -3086,6 +3659,56 @@ namespace ESDWebserviceTemplate
 
             //output message to the console
             ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_ORDER_PURCHASES, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_POST_END, esDocument.message);
+
+            //serializes the ESD document into 
+            return serializeESDocument(esDocument);
+        }
+
+        /// <summary>Imports an array of supplier invoice records and returns the results of trying to import the supplier invoices</summary>
+        /// <returns>Serialized Ecommerce Standards Document in the JSON data format</returns>
+        public System.ServiceModel.Channels.Message importSupplierInvoices()
+        {
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_SUPPLIER_INVOICES, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_POST_START, "");
+
+            //create Ecommerce standards document for storing records
+            ESDocument esDocument = new ESDocument(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_SUPPLIER_INVOICES, ESDocumentConstants.RESULT_ERROR_UNKNOWN));
+
+            try
+            {
+                //check that data is allowed to be returned from the web service based on the incomming HTTP request headers
+                if (checkRequestCredentials())
+                {
+                    //parse the purchase order data passed in the body of the HTTP POST request and convert into a supplier invoice standards document
+                    ESDocumentSupplierInvoice esDocumentSupplierInvoice = (ESDocumentSupplierInvoice)new DataContractJsonSerializer(typeof(ESDocumentSupplierInvoice)).ReadObject(OperationContext.Current.RequestContext.RequestMessage.GetReaderAtBodyContents());
+
+                    //iterate through each supplier invoice within the Ecommerce Standards document
+                    foreach (ESDRecordSupplierInvoice supplierInvoiceRecord in esDocumentSupplierInvoice.dataRecords)
+                    {
+                        //remove any null values from the invoice's properties if the deserializer could not set any values
+                        supplierInvoiceRecord.setDefaultValuesForNullMembers();
+
+                        //do processing for each supplier invoice, such as importing it into a database or other data source
+                        //other steps may be to create a supplier account if one has not been found, or match up the supplier's product lines to one's own products
+                    }
+
+                    //update the details of the document after all records have sucessfully been obtained
+                    esDocument.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_SUPPLIER_INVOICES, ESDocumentConstants.RESULT_SUCCESS);
+                    esDocument.resultStatus = ESDocumentConstants.RESULT_SUCCESS;
+                }
+                else
+                {
+                    esDocument.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_SUPPLIER_INVOICES, ESDocumentConstants.RESULT_ERROR_CONNECTOR_INVALID_CREDENTIALS);
+                    esDocument.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_INVALID_CREDENTIALS;
+                }
+            }
+            catch (Exception ex)
+            {
+                esDocument.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_SUPPLIER_INVOICES, ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING);
+                esDocument.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING;
+            }
+
+            //output message to the console
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_SUPPLIER_INVOICES, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_POST_END, esDocument.message);
 
             //serializes the ESD document into 
             return serializeESDocument(esDocument);
