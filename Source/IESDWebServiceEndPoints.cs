@@ -45,6 +45,9 @@ namespace ESDWebserviceTemplate
         [WebGet(UriTemplate = "data/customer_account_status?keyCustomerAccountID={keyCustomerAccountID}&checkOnHold={checkOnHold}&checkBalance={checkBalance}&checkTerms={checkTerms}", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Json)]
         System.ServiceModel.Channels.Message getCustomerAccountStatus(string keyCustomerAccountID, string checkOnHold, string checkBalance, string checkTerms);
 
+        [WebGet(UriTemplate = "data/delivery_notices", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Json)]
+        System.ServiceModel.Channels.Message getDeliveryNotices();
+
         [WebGet(UriTemplate = "data/downloads", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Json)]
         System.ServiceModel.Channels.Message getDownloads();
 

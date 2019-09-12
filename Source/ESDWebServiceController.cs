@@ -1414,6 +1414,120 @@ namespace ESDWebserviceTemplate
             return serializeESDocument(esDocumentDownload);
         }
 
+        /// <summary>Obtains an Ecommerce Standards Document containing an array of delivery notice records</summary>
+        /// <returns>Serialized Ecommerce Standards Document in the JSON data format</returns>
+        public System.ServiceModel.Channels.Message getDeliveryNotices()
+        {
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_DELIVERY_NOTICES, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_START, "");
+
+            //create Ecommerce standards document for storing records
+            Dictionary<string, string> esDocumentConfigs = new Dictionary<string, string>();
+            ESDocumentDeliveryNotice esDocumentDeliveryNotices = new ESDocumentDeliveryNotice(ESDocumentConstants.RESULT_ERROR_UNKNOWN, ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_DELIVERY_NOTICES, ESDocumentConstants.RESULT_ERROR_UNKNOWN), new ESDRecordDeliveryNotice[] { }, esDocumentConfigs);
+
+            try
+            {
+                //check that data is allowed to be returned from the web service based on the incomming HTTP request headers
+                if (checkRequestCredentials())
+                {
+                    //obtain record data
+                    //This is where you would call a database or other data source to obtain and place data into the standards record objects
+                    List<ESDRecordDeliveryNotice> records = new List<ESDRecordDeliveryNotice>();
+
+                    //add record data to the document
+                    ESDRecordDeliveryNotice record = new ESDRecordDeliveryNotice();
+                    record.keyDeliveryNoticeID = "2231321";
+                    record.deliveryNoticeCode = "DEL-123";
+                    record.deliveryStatus = ESDocumentConstants.DELIVERY_STATUS_IN_TRANSIT;
+                    record.deliveryStatusMessage = "The ordered goods have left the warehouse and are in transit.";
+                    record.language = ESDocumentConstants.LANG_EN_AU;
+                    record.packedDate = 1448130083084;
+                    record.loadedDate = 1449131083084; //date Thu Dec 03 2015 08:41:23 UTC
+                    record.dispatchedDate = 1450132083084;
+                    record.deliveryDate = 1450133083084;
+                    record.receivedDate = 0;
+                    record.deliveredDate = 0;
+                    record.unpackedDate = 0;
+                    record.lostDate = 0;
+                    record.damagedDate = 0;
+                    record.atGeographicLocation = ESDocumentConstants.ESD_VALUE_YES;
+                    record.locationLatitude = (decimal)-37.8102907;
+                    record.locationLongitude = (decimal)144.9608443;
+                    record.instructions = "Please leave the goods at the back door";
+                    record.freightCarrierCode = "ACME-F";
+                    record.freightCarrierName = "Acme Freight Carrier";
+                    record.freightSystemRefCode = "334234-23423-234-343242";
+                    record.freightCarrierConsignCode = "34423423424";
+                    record.freightCarrierTrackingCode = "767567-56765-5676567";
+                    record.freightCarrierServiceCode = "ROUTING-FREIGHT";
+                    record.freightCarrierAccountCode = "FREI-1234";
+                    record.isDropship = ESDocumentConstants.ESD_VALUE_NO;
+
+                    record.lines = new List<ESDRecordDeliveryNoticeLine>()
+                    {
+                        new ESDRecordDeliveryNoticeLine()
+                        {
+                            keyDeliveryNoticeLineID = "456",
+                            deliveryLineCode = "DEL-LINE-001",
+                            invoiceCode = "INV-123",
+                            invoiceLineCode = "456",
+                            purchaseOrderLineCode = "456",
+                            purchaseOrderLineNumber = "456",
+                            keySellUnitID = "EACH",
+                            keyProductID = "123",
+                            productCode = "SWISH-123",
+                            productName = "Swisho Paper A4",
+                            customerProductCode = "PAPER-A4-SWISHO",
+                            quantityOnDelivery = 5
+                        },
+                        new ESDRecordDeliveryNoticeLine()
+                        {
+                            keyDeliveryNoticeLineID = "457",
+                            deliveryLineCode = "DEL-LINE-002",
+                            invoiceCode = "INV-123",
+                            invoiceLineCode = "456",
+                            purchaseOrderLineCode = "457",
+                            purchaseOrderLineNumber = "457",
+                            keySellUnitID = "ROLL",
+                            keyProductID = "222",
+                            productCode = "SWISH-222",
+                            productName = "Swisho Paper Roll",
+                            customerProductCode = "PAPER-ROLL-SWISHO",
+                            quantityOnDelivery = 2
+                        }
+                    };
+
+                    records.Add(record);
+
+                    //update the details of the document after all records have sucessfully been obtained
+                    esDocumentDeliveryNotices.dataRecords = records.ToArray();
+                    esDocumentDeliveryNotices.totalDataRecords = records.Count;
+                    esDocumentDeliveryNotices.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_DELIVERY_NOTICES, ESDocumentConstants.RESULT_SUCCESS);
+                    esDocumentDeliveryNotices.resultStatus = ESDocumentConstants.RESULT_SUCCESS;
+
+                    // add a document config that specifies all of the record properties that may contain data in the document
+                    // This properties indicate to other systems importing the document on which record data can be inserted or overwritten
+                    esDocumentConfigs.Add("dataFields", "keyDeliveryNoticeID,deliveryNoticeCode,deliveryStatus,deliveryStatusMessage,language,packedDate,loadedDate,dispatchedDate,deliveryDate,receivedDate,deliveredDate,unpackedDate,lostDate,damagedDate,atGeographicLocation,locationLatitude,locationLongitude,instructions,freightCarrierCode,freightCarrierName,freightSystemRefCode,freightCarrierConsignCode,freightCarrierTrackingCode,freightCarrierServiceCode,freightCarrierAccountCode,isDropship");
+
+                }
+                else
+                {
+                    esDocumentDeliveryNotices.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_DELIVERY_NOTICES, ESDocumentConstants.RESULT_ERROR_CONNECTOR_INVALID_CREDENTIALS);
+                    esDocumentDeliveryNotices.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_INVALID_CREDENTIALS;
+                }
+            }
+            catch (Exception ex)
+            {
+                esDocumentDeliveryNotices.message = ESDWebServiceConstants.getESDocumentMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_DELIVERY_NOTICES, ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING);
+                esDocumentDeliveryNotices.resultStatus = ESDocumentConstants.RESULT_ERROR_CONNECTOR_PROCESSING;
+            }
+
+            //output message to the console
+            ESDWebServiceConstants.outputConsoleMessage(ESDWebServiceConstants.ESD_ENDPOINT_ID_DELIVERY_NOTICES, ESDWebServiceConstants.ESD_ENDPOINT_METHOD_GET_END, esDocumentDeliveryNotices.message);
+
+            //serializes the ESD document
+            return serializeESDocument(esDocumentDeliveryNotices);
+        }
+
         /// <summary>Obtains an Ecommerce Standards Document containing an array of flag records and associations to products, downloads, and/or labour</summary>
         /// <returns>Serialized Ecommerce Standards Document in the JSON data format</returns>
         public System.ServiceModel.Channels.Message getFlags()

@@ -15,6 +15,7 @@ After the webservice console application has started, you can open a web browser
 * http://localhost:8081/esd/data/customer_accounts
 * http://localhost:8081/esd/data/customer_account_addresses
 * http://localhost:8081/esd/data/customer_account_contracts
+* http://localhost:8081/esd/data/delivery_notices
 * http://localhost:8081/esd/data/downloads
 * http://localhost:8081/esd/data/flags
 * http://localhost:8081/esd/data/general_ledger_accounts
